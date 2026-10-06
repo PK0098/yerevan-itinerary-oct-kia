@@ -27,12 +27,16 @@
         <span style="color:var(--muted,#8a7868)">/ 13–16 Oct · 3 nights · 2 adults</span>
       </div>
       <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:60px;line-height:1;letter-spacing:-.01em;margin-top:14px;color:var(--ink,#2a2018)">Where to <span style="font-style:italic;color:var(--accent,#c4542f)">stay</span></h1>
-      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Six well-rated stays, all walkable to Republic Square and the galleries — from the value pick to the luxury flagships. Each opens its live Booking.com page for your dates — live prices checked for 13–16 October, 2 adults.</p>
+      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Six hotels on Booking.com and five Airbnb apartments, all in Yerevan. Each opens its live page for 13–16 October, 2 adults.</p>
     </header>
 
     <!-- HOTEL LIST -->
     <div style="display:flex;flex-direction:column;gap:16px;margin-top:30px">
-      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="6">
+      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="11">
+        <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-if value="{{ h.sectionTitle }}" hint-placeholder-val="">
+          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent,#c4542f);padding-top:10px">{{ h.sectionTitle }}</div>
+        </sc-if>
         <div style="{{ h.cardStyle }}">
           <!-- photo -->
           <div style="{{ h.photoStyle }}">
@@ -52,7 +56,7 @@
           <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;width:184px;align-self:stretch">
             <div style="display:flex;align-items:center;gap:9px">
               <div style="text-align:right">
-                <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#8a7868)">Booking</div>
+                <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#8a7868)">{{ h.source }}</div>
                 <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted,#8a7868);margin-top:1px">{{ h.reviews }}</div>
               </div>
               <div style="{{ h.scoreStyle }}">{{ h.score }}</div>
@@ -62,13 +66,14 @@
               <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#8a7868);margin-top:1px">/ night · 2 adults</div>
               <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:var(--muted,#8a7868);margin-top:5px;line-height:1.35">{{ h.stay }}</div>
             </div>
-            <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">Book on Booking.com ↗</a>
+            <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">{{ h.cta }}</a>
           </div>
+        </div>
         </div>
       </sc-for>
     </div>
 
-    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices are the cheapest Booking.com rate found on 6 Oct 2026 with breakfast included for 13–16 Oct, USD, 2 adults in 1 room, per night, before taxes &amp; fees (~20%); they can change, and the cheapest rate is often non-refundable. Rooms Apart does not include breakfast, so its price adds the breakfast add-on (assumed per person per night). Booking links open Booking.com in a new tab, pre-set to those dates · 2 adults. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
+    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices are the cheapest Booking.com rate found on 6 Oct 2026 with breakfast included for 13–16 Oct, USD, 2 adults in 1 room, per night, before taxes &amp; fees (~20%); they can change, and the cheapest rate is often non-refundable. Rooms Apart does not include breakfast, so its price adds the breakfast add-on (assumed per person per night). Booking links open Booking.com in a new tab, pre-set to those dates · 2 adults. Airbnb prices are the totals Airbnb showed for 3 nights (2 guests), divided by 3, and may include its fees, so they are not directly comparable with the Booking prices above. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
   </div>
 </div>
 </x-dc>
@@ -93,6 +98,16 @@ class Component extends DCLogic {
     ];
   }
 
+  airbnbs(){
+    return [
+      {id:'ab_tulip', name:'Tulip 1BR with garden & BBQ', tier:'Airbnb', stars:0, score:'★ 4.96', reviews:'223 rev. · out of 5', price:85, stay:'1 bedroom · 2 beds · $256 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Self check-in, garden, BBQ and Netflix per the listing. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDU1MTYzMjI%3D/original/ab8e2425-8730-48a5-88eb-4db4348eefe7.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/45516322?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_rustic', name:'Spacious apartment with a balcony', tier:'Airbnb', stars:0, score:'★ 5.0', reviews:'52 rev. · out of 5', price:122, stay:'2 bedrooms · 3 beds · $365 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Serviced apartment advertised as rustic-style and spacious, with a balcony. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/3b0d9e24-3911-44b8-b03f-a03ec236ce85.jpg?im_w=720', url:'https://www.airbnb.com/rooms/28025028?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_modern', name:'Modern 2-bedroom apartment', tier:'Airbnb', stars:0, score:'★ 4.89', reviews:'84 rev. · out of 5', price:124, stay:'2 bedrooms · 3 beds · $371 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Modern two-bedroom apartment advertised as in the heart of Yerevan. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/miso/Hosting-579594317795989790/original/c481d673-b83c-45f3-bfb5-72176773d8ea.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/579594317795989790?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_saryan', name:'Saryan Vibes by Traveehub', tier:'Airbnb', stars:0, score:'★ 4.9', reviews:'40 rev. · out of 5', price:127, stay:'1 bedroom · 2 beds · $380 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Boutique apartment from Traveehub; the name suggests Saryan Street, but Airbnb only shows the exact spot after booking. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTMwMjE2ODQ1MzEwODQyMzU5Mg%3D%3D/original/921fa784-e1c9-4844-a09a-60200b166b2d.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/1302168453108423592?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_fountain', name:'Apartment near the fountains', tier:'Airbnb', stars:0, score:'★ 4.91', reviews:'43 rev. · out of 5', price:130, stay:'2 bedrooms · 3 beds · $390 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Advertised as near the fountain, with 24/7 self check-in. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-1510843956985282369/original/61a1a6c0-54b5-4463-ba6b-ce7e126b5fb7.png?im_w=720', url:'https://www.airbnb.com/rooms/1510843956985282369?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+    ];
+  }
+
   bookingUrl(name,rooms){
     var q='checkin=2026-10-13&checkout=2026-10-16&group_adults=2&no_rooms='+(rooms||1)+'&group_children=0&selected_currency=USD';
     if(/^https?:\/\//.test(name)) return name+(name.indexOf('?')<0?'?':'&')+q;
@@ -101,7 +116,7 @@ class Component extends DCLogic {
 
   renderVals(){
     const T = this.themes()[this.props.theme || 'apricot'] || this.themes().apricot;
-    const list = this.hotels();
+    const list = this.hotels().map(h=>({...h,source:'Booking',cta:'Book on Booking.com '+'\u2197',url:this.bookingUrl(h.book,h.rooms)})).concat(this.airbnbs().map(a=>({...a,source:'Airbnb',cta:'View on Airbnb '+'\u2197'})));
     const stars = (n)=> n ? '\u2605'.repeat(n) + '\u2606'.repeat(5-n) : '';
 
     const rootStyle = {
@@ -110,12 +125,13 @@ class Component extends DCLogic {
       fontFamily:"'Hanken Grotesk',sans-serif", WebkitFontSmoothing:'antialiased'
     };
 
-    const hotels = list.map(h=>{
+    const hotels = list.map((h,i)=>{
       const tierBg = h.id==='ibis' ? T.accent2 : (h.tier.indexOf('Marriott')>=0||h.tier.indexOf('Luxury')>=0||h.tier.indexOf('venpick')>=0? T.accent : T.muted);
       return {
         name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, reviews:h.reviews,
         loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'$'+h.price,
-        bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
+        bookUrl:h.url, stay:h.stay, source:h.source, cta:h.cta,
+        sectionTitle: i===0 ? 'Hotels · Booking.com' : (h.source==='Airbnb' && list[i-1].source!=='Airbnb' ? 'Airbnb apartments · self-catering' : ''),
         cardStyle:{
           display:'flex', alignItems:'stretch', gap:'22px', width:'100%',
           background:T.surface, padding:'18px', borderRadius:'14px', border:'1px solid '+T.line

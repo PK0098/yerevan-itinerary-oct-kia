@@ -184,7 +184,11 @@
             <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#c4542f)">Where to stay · 13–16 Oct · 3 nights</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:13px">
-            <sc-for list="{{ hotelCards }}" as="h" hint-placeholder-count="6">
+            <sc-for list="{{ hotelCards }}" as="h" hint-placeholder-count="11">
+              <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-if value="{{ h.sectionTitle }}" hint-placeholder-val="">
+                <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent,#c4542f);padding-top:6px">{{ h.sectionTitle }}</div>
+              </sc-if>
               <div style="{{ h.cardStyle }}">
                 <div style="{{ h.photoStyle }}">
                   <span style="{{ h.tierStyle }}">{{ h.tier }}</span>
@@ -203,13 +207,14 @@
                       <span style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--ink,#2a2018);letter-spacing:-.02em">{{ h.priceLabel }}</span>
                       <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#8a7868);margin-left:3px">/ night</span><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:var(--muted,#8a7868);margin-top:3px">{{ h.stay }}</div>
                     </div>
-                    <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">Booking.com ↗</a>
+                    <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">{{ h.cta }}</a>
                   </div>
                 </div>
               </div>
+              </div>
             </sc-for>
           </div>
-          <p style="margin-top:16px;font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Photos from each hotel’s official listing. Links open Booking.com in a new tab, pre-set to 13–16 Oct 2026 · 2 adults. Prices are the cheapest breakfast-included Booking.com rate found for those dates (USD), per night for the room, often non-refundable — check conditions (Rooms Apart: breakfast add-on assumed per person per night and included). Prices are before taxes &amp; fees (~20%).</p>
+          <p style="margin-top:16px;font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Airbnb prices are Airbnb’s 3-night totals for 2 guests divided by 3 and may include fees. Photos from each listing. Links open Booking.com in a new tab, pre-set to 13–16 Oct 2026 · 2 adults. Prices are the cheapest breakfast-included Booking.com rate found for those dates (USD), per night for the room, often non-refundable — check conditions (Rooms Apart: breakfast add-on assumed per person per night and included). Prices are before taxes &amp; fees (~20%).</p>
         </div>
       </sc-if>
 
@@ -261,6 +266,16 @@ class Component extends DCLogic {
       {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'9.3', price:376, rooms:1, stay:'Standard King Room · $1,128 for 3 nights · breakfast incl.', loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star near the Opera and Cascade.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
     ];
   }
+  airbnbs(){
+    return [
+      {id:'ab_tulip', name:'Tulip 1BR with garden & BBQ', tier:'Airbnb', stars:0, score:'★ 4.96', price:85, stay:'1 bedroom · 2 beds · $256 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Self check-in, garden, BBQ and Netflix per the listing. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDU1MTYzMjI%3D/original/ab8e2425-8730-48a5-88eb-4db4348eefe7.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/45516322?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_rustic', name:'Spacious apartment with a balcony', tier:'Airbnb', stars:0, score:'★ 5.0', price:122, stay:'2 bedrooms · 3 beds · $365 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Serviced apartment advertised as rustic-style and spacious, with a balcony. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/3b0d9e24-3911-44b8-b03f-a03ec236ce85.jpg?im_w=720', url:'https://www.airbnb.com/rooms/28025028?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_modern', name:'Modern 2-bedroom apartment', tier:'Airbnb', stars:0, score:'★ 4.89', price:124, stay:'2 bedrooms · 3 beds · $371 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Modern two-bedroom apartment advertised as in the heart of Yerevan. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/miso/Hosting-579594317795989790/original/c481d673-b83c-45f3-bfb5-72176773d8ea.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/579594317795989790?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_saryan', name:'Saryan Vibes by Traveehub', tier:'Airbnb', stars:0, score:'★ 4.9', price:127, stay:'1 bedroom · 2 beds · $380 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Boutique apartment from Traveehub; the name suggests Saryan Street, but Airbnb only shows the exact spot after booking. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTMwMjE2ODQ1MzEwODQyMzU5Mg%3D%3D/original/921fa784-e1c9-4844-a09a-60200b166b2d.jpeg?im_w=720', url:'https://www.airbnb.com/rooms/1302168453108423592?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+      {id:'ab_fountain', name:'Apartment near the fountains', tier:'Airbnb', stars:0, score:'★ 4.91', price:130, stay:'2 bedrooms · 3 beds · $390 total for 3 nights', loc:'Yerevan · exact spot shown after booking', note:'Advertised as near the fountain, with 24/7 self check-in. Guest favourite on Airbnb.', img:'https://a0.muscache.com/im/pictures/hosting/Hosting-1510843956985282369/original/61a1a6c0-54b5-4463-ba6b-ce7e126b5fb7.png?im_w=720', url:'https://www.airbnb.com/rooms/1510843956985282369?check_in=2026-10-13&check_out=2026-10-16&adults=2'},
+    ];
+  }
+
   bookingUrl(name,rooms){
     var q='checkin=2026-10-13&checkout=2026-10-16&group_adults=2&no_rooms='+(rooms||1)+'&group_children=0&selected_currency=USD';
     if(/^https?:\/\//.test(name)) return name+(name.indexOf('?')<0?'?':'&')+q;
@@ -318,10 +333,11 @@ class Component extends DCLogic {
           {id:'d2d',time:'Midday',title:'Lunch at the Dulmama',kind:'Food',tier:'plus',lat:40.1805,lng:44.5159,blurb:'Yerevan\u2019s storied fine-dining table beneath an old grapevine',detail:'An intimate, upmarket Armenian restaurant on Pushkin Street, serving since 1998 \u2014 its courtyard shaded by a vine older than independence, pairing heritage dolma and lamb with a serious wine list.',dur:'2 h',cost:'12,000\u201325,000 \u058f',tip:'Reservations essential \u2014 request the vine-covered inner courtyard and order the namesake dolma.'},
           {id:'d2e',time:'Afternoon',title:'Saryan Street wine walk',kind:'Wine',tier:'plus',lat:40.1846,lng:44.5118,blurb:'Yerevan\u2019s wine-bar strip beside the Opera.',detail:'A short street packed with bars pouring Armenian volcanic-soil wines \u2014 areni, voskehat and more.',dur:'1 h',cost:'from 1,500 \u058f/glass',tip:'Areni Noir is the signature red; ask for Vayots Dzor.'},
         ]},
-      { label:'Bar Hopping', chip:'Bar Hopping', icon:'🍸', route:false, note:'Simona, The Beatles Pub and 13:20 are all within about 1.5 km, so they work as a walk. Simona is a basement bar and easy to miss.',
+      { label:'Bar Hopping', chip:'Bar Hopping', icon:'🍸', route:false, note:'Simona and The Beatles Pub are a few minutes apart; 13:20 is about 1.3 km east of the Beatles and Esthetic Joy Embassy about 1 km north of Simona. Simona is a basement bar and easy to miss.',
         spots:[
           {id:'sim',time:'Late evening',title:'Simona',kind:'Cocktail bar',tier:'core',lat:40.18388,lng:44.50769,blurb:'Cult underground cocktail bar on Aram St with top bartenders.',detail:'A basement bar at 80 Aram St, known for well-made classic cocktails and good music. The entrance is a small door, so it is easy to walk past; it is next to Dargett craft brewery.',dur:'1–2 h',cost:'est. 2,500–4,500 ֏ per cocktail (not verified)',tip:'Listed 19:00–02:00 daily. Arrive early or on a weeknight, it fills up. The pin marks the building, so look for the basement entrance.'},
           {id:'beat',time:'Evening',title:'The Beatles Pub',kind:'Pub',tier:'core',lat:40.18541,lng:44.50908,blurb:'Beatles-themed pub with live covers and a loyal local crowd.',detail:'A long-running themed pub at 60 Pushkin St, known for live cover music and a casual, friendly crowd.',dur:'1–2 h',cost:'est. 1,500–3,500 ֏ per drink (not verified)',tip:'Phone +374 10 522023 to ask about live-music nights.'},
+          {id:'ej',time:'Evening',title:'Esthetic Joy Embassy',kind:'Bar & culture space',tier:'core',lat:40.19288,lng:44.50995,blurb:'Eclectic bar and cultural space on Sarmen St.',detail:'An eclectic bar and cultural venue at 72 Sarmen St, a change of pace from the cocktail bars. I could not verify its menu, hours or events, so check before going.',dur:'1–2 h',cost:'Not verified',tip:'Look up its current hours and events before heading over; it is about 1 km north of Simona.'},
           {id:'d2h',time:'Evening',title:'13:20 pub',kind:'Bar',tier:'core',lat:40.18293,lng:44.52475,blurb:'Hidden ruin bar pouring 100+ Armenian homemade spirits',detail:'A tiny DIY ruin bar on the second floor of a 200-year-old building \u2014 all local Armenian distillates, tinctures and grandmother-recipe schnapps, under a clock frozen at 13:20.',dur:'1.5 h',cost:'from 1,500 \u058f/drink',tip:'Tucked away on Pavstos Buzand opposite the Ramada \u2014 DM @13_20.am to confirm it\u2019s open before heading over.'}
         ]},
       { label:'Artsy', chip:'Artsy', icon:'🎨', route:false, note:'Rambalkoshe is in Arabkir, about 3 km north of the centre, and the Persian Consulate is mostly an outside look unless an exhibition is on. Check Instagram before going.',
@@ -429,9 +445,11 @@ class Component extends DCLogic {
 
     // hotels
     const stars=(n)=>n?'\u2605'.repeat(n)+'\u2606'.repeat(5-n):'';
-    const hotelCards = this.hotels().map(h=>{
+    const allStays = this.hotels().map(h=>({...h,cta:'Booking.com '+'\u2197',url:this.bookingUrl(h.book,h.rooms),source:'Booking'})).concat(this.airbnbs().map(a=>({...a,cta:'Airbnb '+'\u2197',source:'Airbnb'})));
+    const hotelCards = allStays.map((h,i)=>{
       const tierBg = h.id==='ibis' ? T.accent2 : (h.tier.indexOf('Marriott')>=0||h.tier.indexOf('Luxury')>=0||h.tier.indexOf('venpick')>=0? T.accent : T.muted);
-      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'$'+h.price, bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
+      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'$'+h.price, bookUrl:h.url, stay:h.stay, cta:h.cta,
+        sectionTitle: i===0 ? 'Hotels · Booking.com' : (h.source==='Airbnb' && allStays[i-1].source!=='Airbnb' ? 'Airbnb apartments · self-catering' : ''),
         cardStyle:{ background:T.surface, borderRadius:'14px', border:'1px solid '+T.line, overflow:'hidden' },
         photoStyle:{ position:'relative', width:'100%', height:'170px', backgroundImage:'url('+h.img+')', backgroundSize:'cover', backgroundPosition:'center' },
         tierStyle:{position:'absolute', top:'11px', left:'11px', fontFamily:"'Space Mono',monospace", fontSize:'9px', letterSpacing:'.1em', textTransform:'uppercase', color:'#fff', background:tierBg, padding:'4px 9px', borderRadius:'999px', boxShadow:'0 2px 8px rgba(0,0,0,.3)'},
