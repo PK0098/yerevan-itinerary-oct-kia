@@ -113,7 +113,7 @@ class Component extends DCLogic {
       const tierBg = h.id==='ibis' ? T.accent2 : (h.tier.indexOf('Marriott')>=0||h.tier.indexOf('Luxury')>=0||h.tier.indexOf('venpick')>=0? T.accent : T.muted);
       return {
         name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, reviews:h.reviews,
-        loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'\u20ac'+h.price,
+        loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'$'+h.price,
         bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
         cardStyle:{
           display:'flex', alignItems:'stretch', gap:'22px', width:'100%',

@@ -75,13 +75,6 @@
                 <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
               </sc-for>
             </div>
-            <sc-if value="{{ day.gyumri }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;border:1px solid var(--line,#e6d8c6);border-radius:999px;overflow:hidden">
-                <sc-for list="{{ gyumriOpts }}" as="g" hint-placeholder-count="2">
-                  <button onClick="{{ g.onClick }}" style="{{ g.style }}">{{ g.label }}</button>
-                </sc-for>
-              </div>
-            </sc-if>
           </div>
           <sc-if value="{{ day.note }}" hint-placeholder-val="">
             <div style="margin-top:14px;padding:11px 14px;border-left:3px solid var(--accent,#c4542f);background:var(--surface,#fffaf3);font-family:'Newsreader',serif;font-size:14px;line-height:1.45;color:var(--ink,#2a2018)">{{ day.note }}</div>
@@ -137,7 +130,7 @@
                 <div style="{{ p.dotStyle }}">{{ p.n }}</div>
               </div>
             </sc-for>
-            <div style="position:absolute;right:6px;bottom:5px;font-family:'Space Mono',monospace;font-size:8px;color:rgba(40,32,24,.55);background:rgba(255,255,255,.55);padding:1px 5px;border-radius:3px">© OSM · CARTO</div>
+            <div style="position:absolute;right:6px;bottom:5px;font-family:'Space Mono',monospace;font-size:8px;color:rgba(40,32,24,.55);background:rgba(255,255,255,.55);padding:1px 5px;border-radius:3px">© OpenStreetMap contributors</div>
           </div>
           <div style="margin-top:14px;display:flex;flex-direction:column;gap:2px">
             <sc-for list="{{ cards }}" as="c" hint-placeholder-count="5">
@@ -281,7 +274,7 @@ class Component extends DCLogic {
     const cfx=(minx+maxx)/2, cfy=(miny+maxy)/2;
     const spanx=Math.max(maxx-minx,1e-7), spany=Math.max(maxy-miny,1e-7);
     let z=Math.floor(Math.min(Math.log2(W*0.7/(256*spanx)), Math.log2(H*0.7/(256*spany))));
-    z=Math.max(12,Math.min(16,isFinite(z)?z:15));
+    z=Math.max(9,Math.min(16,isFinite(z)?z:15));
     const world=256*Math.pow(2,z), cx=cfx*world, cy=cfy*world, n=Math.pow(2,z);
     const project=(lat,lng)=>{const f=this.proj(lat,lng); return {x:f.fx*world-cx+W/2, y:f.fy*world-cy+H/2};};
     const style=(this.props.theme==='pomegranate')?'dark_all':'light_all';
@@ -289,7 +282,7 @@ class Component extends DCLogic {
     for(let tx=Math.floor((cx-W/2)/256); tx<=Math.floor((cx+W/2)/256); tx++)
       for(let ty=Math.floor((cy-H/2)/256); ty<=Math.floor((cy+H/2)/256); ty++){
         if(tx<0||ty<0||tx>=n||ty>=n) continue;
-        var turl='https://a.basemaps.cartocdn.com/'+style+'/'+z+'/'+tx+'/'+ty+'@2x.png';
+        var turl='https://tile.openstreetmap.org/'+z+'/'+tx+'/'+ty+'.png';
         tiles.push({ url:turl,
           style:{position:'absolute',width:'256px',height:'256px',left:(tx*256-cx+W/2)+'px',top:(ty*256-cy+H/2)+'px',backgroundImage:'url('+turl+')',backgroundSize:'256px 256px',backgroundRepeat:'no-repeat'} });
       }
@@ -306,65 +299,55 @@ class Component extends DCLogic {
 
   data() {
     return [
-      { label:'Pink City', chip:'Pink City',
+      { label:'The Pink City', chip:'Pink City', icon:'🏛️', route:true,
         spots:[
-          {id:'d1a',time:'09:30',title:'Settle in & first coffee',kind:'Food',tier:'core',lat:40.1832,lng:44.5142,blurb:'Drop the bags, caffeinate, get your bearings around Kentron.',detail:'Base yourself in Kentron \u2014 everything below is walkable. Grab a flat white and a gata pastry to start slow.',dur:'1 h',cost:'~1,500 \u058f',tip:'Get cash (dram) early; Vernissage and small spots are card-shy.'},
-          {id:'d1b',time:'11:00',title:'Republic Square',kind:'Landmark',tier:'core',lat:40.1772,lng:44.5135,blurb:'The pink-and-cream tufa ensemble at the city\u2019s heart.',detail:'Tamanyan\u2019s grand neoclassical square is the architectural thesis statement of Yerevan \u2014 rosy tufa, arcades, the Government House clock.',dur:'30 min',cost:'Free',tip:'Come back tonight for the singing-fountains light show.'},
-          {id:'d1c',time:'11:30',title:'National Gallery & History Museum',kind:'Museum',tier:'core',lat:40.1780,lng:44.5152,blurb:'Armenia\u2019s flagship art + history on the square.',detail:'The National Gallery holds Armenian masters (Aivazovsky, Saryan) plus European works; the History Museum traces 3,000 years.',dur:'2.5 h',cost:'2,500 \u058f',tip:'Start top-floor (Armenian art); the Aivazovsky room is the highlight.'},
-          {id:'d1d',time:'14:30',title:'Lunch at Lavash Restaurant; reservation required.',kind:'Food',tier:'plus',lat:40.183,lng:44.5163,blurb:'Let\u2019s order some Armenian classics and Napol\u00e9on cake.',detail:'A colourful, design-forward room on Tumanyan Street reimagining Armenian home cooking \u2014 fresh-baked lavash, tolma and barbecue with a playful streak.',dur:'1.5 h',cost:'6,000\u201312,000 \u058f',tip:'Book ahead and ask to watch the lavash baked in the tonir; start with the cheese-and-herb platter.'},
-          {id:'d1e',time:'16:00',title:'Center of Contemporary Experimental Art (ACCEA Npak)',kind:'Art Centre',tier:'plus',lat:40.1755,lng:44.5179,blurb:'Post-Soviet Armenia\u2019s pioneering home for experimental art',detail:'Founded in 1992 in the wake of independence, NPAK fills a sprawling government-granted hall near Republic Square \u2014 the Caucasus\u2019s first dedicated contemporary-experimental art centre.',dur:'1 h',cost:'Free / donation',tip:'Programming rotates and the space can be between shows \u2014 check the current exhibition before going.'},
-          {id:'d1f',time:'18:00',title:'Northern Avenue & Swan Lake',kind:'Walk',tier:'plus',lat:40.1828,lng:44.5128,blurb:'Pedestrian boulevard linking square to opera.',detail:'Stroll marble Northern Avenue to the Opera and Swan Lake as the light turns gold.',dur:'45 min',cost:'Free',tip:'Buskers and ice-cream carts appear around dusk.'},
-          {id:'d1g',time:'21:00',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced show in season — check it is still on in mid-October \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Runs ~21:00\u201323:00; grab a bench on the museum side.'}
+          {id:'d1b',time:'Morning',title:'Republic Square',kind:'Landmark',tier:'core',lat:40.1772,lng:44.5135,blurb:'The pink-and-cream tufa ensemble at the city\u2019s heart.',detail:'Tamanyan\u2019s grand neoclassical square is the architectural thesis statement of Yerevan \u2014 rosy tufa, arcades, the Government House clock.',dur:'30 min',cost:'Free',tip:'Come back tonight for the singing-fountains light show.'},
+          {id:'d1f',time:'Evening',title:'Northern Avenue & Swan Lake',kind:'Walk',tier:'core',lat:40.1828,lng:44.5128,blurb:'Pedestrian boulevard linking square to opera.',detail:'Stroll marble Northern Avenue to the Opera and Swan Lake as the light turns gold.',dur:'45 min',cost:'Free',tip:'Buskers and ice-cream carts appear around dusk.'},
+          {id:'d2f',time:'Afternoon',title:'Opera House',kind:'Landmark',tier:'core',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the current programme \u2014 tickets are often very affordable.'},
+          {id:'d2b',time:'Morning',title:'Cascade and Galleries inside of the complex',kind:'Landmark and Museum',tier:'core',lat:40.1908,lng:44.5152,blurb:'Monumental stairway-garden up the hillside.',detail:'Ride the indoor escalators up, walk the terraces down \u2014 the city and (on clear mornings) Mt Ararat open up behind you.',dur:'1 h',cost:'Free',tip:'Mornings are clearest for Ararat before the haze.'},
+          {id:'d1g',time:'Evening',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced show in season — check it is still on in mid-October \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Runs ~21:00\u201323:00; grab a bench on the museum side.'},
+          {id:'d1c',time:'Morning',title:'National Gallery & History Museum',kind:'Museum',tier:'plus',lat:40.1780,lng:44.5152,blurb:'Armenia\u2019s flagship art + history on the square.',detail:'The National Gallery holds Armenian masters (Aivazovsky, Saryan) plus European works; the History Museum traces 3,000 years.',dur:'2.5 h',cost:'2,500 \u058f',tip:'Start top-floor (Armenian art); the Aivazovsky room is the highlight.'},
+          {id:'d3g',time:'Evening',title:'Lovers\u2019 Park, quiet evening',kind:'Walk',tier:'plus',lat:40.1888,lng:44.5188,blurb:'Landscaped gardens for a slow night.',detail:'A calm, manicured park to decompress \u2014 water, stone and shade, with a good cafe inside.',dur:'45 min',cost:'Free',tip:'A deliberately low-key evening \u2014 the morning earns it.'}
         ]},
-      { label:'Cascade Views & Wine Streets', chip:'Cascade',
+      { label:'Wine & Dine', chip:'Wine & Dine', icon:'🍷', route:false,
         spots:[
-          {id:'d2a',time:'09:30',title:'AHA Collective \u2014 coffee & design',kind:'Design',tier:'core',lat:40.1872,lng:44.5132,blurb:'Concept space: specialty coffee, design objects, local makers.',detail:'A calm, well-curated start \u2014 good coffee alongside Armenian design goods. A modern counterpoint to the day\u2019s heritage.',dur:'45 min',cost:'~2,000 \u058f',tip:'Check opening time the night before \u2014 it\u2019s a small independent space.'},
-          {id:'d2b',time:'11:00',title:'Cascade and Galleries inside of the complex',kind:'Landmark and Museum',tier:'core',lat:40.1908,lng:44.5152,blurb:'Monumental stairway-garden up the hillside.',detail:'Ride the indoor escalators up, walk the terraces down \u2014 the city and (on clear mornings) Mt Ararat open up behind you.',dur:'1 h',cost:'Free',tip:'Mornings are clearest for Ararat before the haze.'},
-          {id:'d2c',time:'13:00',title:':DDD Kunst House',kind:'Gallery',tier:'core',lat:40.1914,lng:44.5198,blurb:'A curator\u2019s apartment turned spontaneous contemporary art house',detail:'An alternative space founded in 2020 by curator Tereza Davtyan, who turned her Mashtots Avenue flat into a gallery during lockdown \u2014 shows appear spontaneously, so visits are by arrangement.',dur:'45 min',cost:'Free',tip:'It\u2019s a private flat (3rd entrance, suite 19) \u2014 message @ddd_kunsthouse on Instagram first to confirm an opening.'},
-          {id:'d2d',time:'13:30',title:'Lunch at the Dulmama',kind:'Food',tier:'plus',lat:40.1805,lng:44.5159,blurb:'Yerevan\u2019s storied fine-dining table beneath an old grapevine',detail:'An intimate, upmarket Armenian restaurant on Pushkin Street, serving since 1998 \u2014 its courtyard shaded by a vine older than independence, pairing heritage dolma and lamb with a serious wine list.',dur:'2 h',cost:'12,000\u201325,000 \u058f',tip:'Reservations essential \u2014 request the vine-covered inner courtyard and order the namesake dolma.'},
-          {id:'d2e',time:'16:30',title:'Saryan Street wine walk',kind:'Wine',tier:'extra',lat:40.1846,lng:44.5118,blurb:'Yerevan\u2019s wine-bar strip beside the Opera.',detail:'A short street packed with bars pouring Armenian volcanic-soil wines \u2014 areni, voskehat and more.',dur:'1 h',cost:'from 1,500 \u058f/glass',tip:'Areni Noir is the signature red; ask for Vayots Dzor.'},
-          {id:'d2f',time:'15:00',title:'Opera House',kind:'Landmark',tier:'plus',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the current programme \u2014 tickets are often very affordable.'},
-          {id:'d2g',time:'19:00',title:'Curatorial Conversation I \u0531\u0580\u0561\u0584\u057d \u0627\u0631\u0633 Araks River Bridge-Museum',kind:'Talk',tier:'core',lat:40.1852,lng:44.5142,blurb:'A visionary river-museum dreaming borders into bridges',detail:'A conceptual binational art project by curator Nairi Khatchadourian, imagining a museum on the Araks at the Armenia\u2013Iran border \u2014 the curatorial conversation is a talk around that vision rather than a fixed venue.',dur:'1 h',cost:'Free',tip:'Treat this as a lecture to catch, not a site to visit \u2014 confirm an actual Yerevan event date first.'},
-          {id:'d2h',time:'21:00',title:'13:20 pub',kind:'Food',tier:'plus',lat:40.1801,lng:44.5118,blurb:'Hidden ruin bar pouring 100+ Armenian homemade spirits',detail:'A tiny DIY ruin bar on the second floor of a 200-year-old building \u2014 all local Armenian distillates, tinctures and grandmother-recipe schnapps, under a clock frozen at 13:20.',dur:'1.5 h',cost:'from 1,500 \u058f/drink',tip:'Tucked away on Pavstos Buzand opposite the Ramada \u2014 DM @13_20.am to confirm it\u2019s open before heading over.'}
+          {id:'inv',time:'Evening',title:'In Vino',kind:'Wine bar',tier:'core',lat:40.18705,lng:44.50894,blurb:'Saryan St’s pioneering wine bar, with Armenian wines by the glass.',detail:'A wine bar and bottle shop that helped turn Saryan Street into Yerevan’s wine street. A good place to try Armenian grapes like Areni and Voskehat with small plates; tastings are available.',dur:'1.5–2 h',cost:'est. 6,000–15,000 ֏ pp (not verified)',tip:'Listed as open daily 11:00–00:00. Book for Friday and Saturday evenings. Several other wine bars are a short walk away.'},
+          {id:'d1d',time:'Midday',title:'Lunch at Lavash Restaurant; reservation required.',kind:'Food',tier:'core',lat:40.183,lng:44.5163,blurb:'Let\u2019s order some Armenian classics and Napol\u00e9on cake.',detail:'A colourful, design-forward room on Tumanyan Street reimagining Armenian home cooking \u2014 fresh-baked lavash, tolma and barbecue with a playful streak.',dur:'1.5 h',cost:'6,000\u201312,000 \u058f',tip:'Book ahead and ask to watch the lavash baked in the tonir; start with the cheese-and-herb platter.'},
+          {id:'wrep',time:'Lunch / dinner',title:'Wine Republic',kind:'Wine & dine',tier:'core',lat:40.1892,lng:44.51598,blurb:'Big Armenian wine list and a patio, just below the Cascade.',detail:'A long-running restaurant at 2 Tamanyan St, near the Cascade and Opera, built around Armenian wine. It shares its space and patio with a Thai-menu side (Thai Republic).',dur:'1.5–2 h',cost:'est. 8,000–18,000 ֏ pp (not verified)',tip:'Listed as open daily 12:00–00:00; I could not confirm its 2026 status, so call ahead (+374 55 001100). In mid-October, ask for an indoor or heated table.'},
+          {id:'d2d',time:'Midday',title:'Lunch at the Dulmama',kind:'Food',tier:'plus',lat:40.1805,lng:44.5159,blurb:'Yerevan\u2019s storied fine-dining table beneath an old grapevine',detail:'An intimate, upmarket Armenian restaurant on Pushkin Street, serving since 1998 \u2014 its courtyard shaded by a vine older than independence, pairing heritage dolma and lamb with a serious wine list.',dur:'2 h',cost:'12,000\u201325,000 \u058f',tip:'Reservations essential \u2014 request the vine-covered inner courtyard and order the namesake dolma.'},
+          {id:'d2e',time:'Afternoon',title:'Saryan Street wine walk',kind:'Wine',tier:'plus',lat:40.1846,lng:44.5118,blurb:'Yerevan\u2019s wine-bar strip beside the Opera.',detail:'A short street packed with bars pouring Armenian volcanic-soil wines \u2014 areni, voskehat and more.',dur:'1 h',cost:'from 1,500 \u058f/glass',tip:'Areni Noir is the signature red; ask for Vayots Dzor.'},
         ]},
-      { label:'Armenian Memorial', chip:'Memorial',
+      { label:'Bar Hopping', chip:'Bar Hopping', icon:'🍸', route:false, note:'Simona, The Beatles Pub and 13:20 are all within about 1.5 km, so they work as a walk. Simona is a basement bar and easy to miss.',
         spots:[
-          {id:'d3a',time:'09:30',title:'Tsitsernakaberd \u2014 Genocide Memorial',kind:'Heritage',tier:'core',lat:40.1542,lng:44.4889,blurb:'The national memorial to the 1915 Genocide.',detail:'A spare, powerful hilltop complex \u2014 the cleft stele, the eternal flame, and an unflinching underground museum.',dur:'2 h',cost:'Free',tip:'Go first thing while it\u2019s quiet and cool; leave emotional space after.'},
-          {id:'d3b',time:'11:30',title:'Matenadaran',kind:'Heritage',tier:'core',lat:40.1944,lng:44.5208,blurb:'Repository of ancient manuscripts.',detail:'Illuminated gospels, medieval science, the largest and smallest Armenian books. Mesrop Mashtots presides on the steps.',dur:'1.5 h',cost:'2,000 \u058f',tip:'The English guided tour is worth it \u2014 the illuminations need context.'},
-          {id:'d3c',time:'13:30',title:'Parajanov Museum',kind:'Museum',tier:'core',lat:40.1788,lng:44.5001,blurb:'Surreal collages from cinema\u2019s exiled poet-magician',detail:'In a tiled house in the Dzoragyugh quarter above the Hrazdan gorge, the museum gathers Parajanov\u2019s collages, dolls and assemblages \u2014 many conjured during his years in Soviet prisons.',dur:'1.5 h',cost:'1,500 \u058f',tip:'Book a foreign-language guide ahead for the backstories; the collages reward context.'},
-          {id:'d3d',time:'15:00',title:'Late lunch in Melika and Pouya\u2019s place',kind:'Food',tier:'extra',lat:40.184,lng:44.515,blurb:'Tahchin or Zereskh polo?',detail:'A home-cooked break at Melika and Pouya\u2019s place \u2014 Persian comfort food and a proper midday rest before the evening.',dur:'1 h',cost:'Home-cooked',tip:'A private stop \u2014 build the afternoon around a long, lazy lunch.'},
-          {id:'d3e',time:'16:30',title:'Institute for Contemporary Art (ICA)',kind:'Gallery',tier:'plus',lat:40.198,lng:44.496,blurb:'A teaching hub where curators and artists are made',detail:'Less a public gallery than an art-economy laboratory in Arabkir \u2014 its school, library and exhibition hall show work by students and visiting artists rather than a fixed collection.',dur:'1 h',cost:'Free',tip:'No standing collection \u2014 go only when ica.am lists a show, and message ahead since it doubles as a school.'},
-          {id:'d3f',time:'18:00',title:'Boyajian Gallery (SAFA)',kind:'Gallery',tier:'plus',lat:40.1894,lng:44.5166,blurb:'Academy gallery showcasing Armenia\u2019s emerging young artists',detail:'The ground-floor exhibition gallery of the State Academy of Fine Arts (SAFA) on Isahakyan St \u2014 rotating shows of students, graduates and contemporary Armenian artists.',dur:'45 min',cost:'Free',tip:'Open weekday academy hours \u2014 check the current show on safa.am, as it changes often.'},
-          {id:'d3g',time:'19:00',title:'Lovers\u2019 Park, quiet evening',kind:'Walk',tier:'plus',lat:40.1888,lng:44.5188,blurb:'Landscaped gardens for a slow night.',detail:'A calm, manicured park to decompress \u2014 water, stone and shade, with a good cafe inside.',dur:'45 min',cost:'Free',tip:'A deliberately low-key evening \u2014 the morning earns it.'}
+          {id:'sim',time:'Late evening',title:'Simona',kind:'Cocktail bar',tier:'core',lat:40.18388,lng:44.50769,blurb:'Cult underground cocktail bar on Aram St with top bartenders.',detail:'A basement bar at 80 Aram St, known for well-made classic cocktails and good music. The entrance is a small door, so it is easy to walk past; it is next to Dargett craft brewery.',dur:'1–2 h',cost:'est. 2,500–4,500 ֏ per cocktail (not verified)',tip:'Listed 19:00–02:00 daily. Arrive early or on a weeknight, it fills up. The pin marks the building, so look for the basement entrance.'},
+          {id:'beat',time:'Evening',title:'The Beatles Pub',kind:'Pub',tier:'core',lat:40.18541,lng:44.50908,blurb:'Beatles-themed pub with live covers and a loyal local crowd.',detail:'A long-running themed pub at 60 Pushkin St, known for live cover music and a casual, friendly crowd.',dur:'1–2 h',cost:'est. 1,500–3,500 ֏ per drink (not verified)',tip:'Phone +374 10 522023 to ask about live-music nights.'},
+          {id:'d2h',time:'Evening',title:'13:20 pub',kind:'Bar',tier:'core',lat:40.18293,lng:44.52475,blurb:'Hidden ruin bar pouring 100+ Armenian homemade spirits',detail:'A tiny DIY ruin bar on the second floor of a 200-year-old building \u2014 all local Armenian distillates, tinctures and grandmother-recipe schnapps, under a clock frozen at 13:20.',dur:'1.5 h',cost:'from 1,500 \u058f/drink',tip:'Tucked away on Pavstos Buzand opposite the Ramada \u2014 DM @13_20.am to confirm it\u2019s open before heading over.'}
         ]},
-      { label:'The Artisan Capital', chip:'Gyumri', gyumri:true,
-        daySpots:[
-          {id:'g1',time:'06:30',title:'Early start to Gyumri',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Drive or train NW to Armenia\u2019s second city (~126 km).',detail:'Car/taxi ~2 h each way; the train is slower (~3 h) but cheap and scenic. Leave early for the cool hours.',dur:'~2 h',cost:'train ~1,000 \u058f / car ~25,000 \u058f',tip:'On a single day, transport is the whole constraint \u2014 lock it in.'},
-          {id:'g2',time:'09:00',title:'Kumayri historic district',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'Best-preserved 19th-century streetscape.',detail:'Black-and-red tufa townhouses with carved wooden balconies \u2014 Gyumri\u2019s architectural soul.',dur:'1.5 h',cost:'Free',tip:'Just wander \u2014 the district rewards aimless walking.'},
-          {id:'g3',time:'10:30',title:'Vardanants Square & churches',kind:'Landmark',tier:'core',lat:40.7894,lng:43.8470,blurb:'Central square flanked by twin cathedrals.',detail:'The grand main square, with Holy Saviour\u2019s (rebuilt after the quake) and the Seven Wounds church.',dur:'45 min',cost:'Free',tip:'Step inside Holy Saviour\u2019s \u2014 its reconstruction is the city in miniature.'},
-          {id:'g4',time:'12:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Museum of urban life & architecture.',detail:'In a grand black-tufa mansion \u2014 crafts, interiors, the earthquake, in the building that best embodies the local style.',dur:'1 h',cost:'1,000 \u058f',tip:'The house is half the exhibit; look up at the ceilings.'},
-          {id:'g5',time:'13:30',title:'A long Gyumri lunch',kind:'Food',tier:'core',lat:40.7886,lng:43.8452,blurb:'Famous for food and hospitality.',detail:'Gyumri takes eating seriously \u2014 hearty, generous, unpretentious. A proper sit-down lunch, not a grab-and-go.',dur:'1.5 h',cost:'4,000\u20137,000 \u058f',tip:'Gyumri hospitality is legendary \u2014 lean into a slow table.'},
-          {id:'g6',time:'15:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Vivid ceramics by two local sisters.',detail:'A joyful, colour-soaked collection \u2014 a bright contrast to the city\u2019s sober stone.',dur:'45 min',cost:'1,000 \u058f',tip:'Small and quick \u2014 perfect before the road home.'},
-          {id:'g7',time:'17:00',title:'Black Fortress (Sev Berd)',kind:'Landmark',tier:'extra',lat:40.7986,lng:43.8300,blurb:'Circular 19th-century fortress.',detail:'A brooding round basalt fort on the edge of town, now an event space \u2014 only if transport timing is comfy.',dur:'40 min',cost:'varies',tip:'Skip if the return clock is tight.'},
-          {id:'g8',time:'19:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back on the road south.',detail:'Be moving by early evening so you\u2019re back in Yerevan for a relaxed last night.',dur:'~2 h',cost:'as morning',tip:'Confirm the return train time on arrival \u2014 schedules are sparse.'}
-        ],
-        nightSpots:[
-          {id:'n1',time:'Thu 11:00',title:'Late, unhurried departure',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'No dawn alarm \u2014 ease north.',detail:'With a night in hand, leave mid-morning. Same ~2 h by car, none of the day-trip clock-watching.',dur:'~2 h',cost:'as day trip',tip:'The overnight is the calmer, more local way \u2014 recommended.'},
-          {id:'n2',time:'Thu 13:30',title:'Lunch & check in',kind:'Food',tier:'core',lat:40.7875,lng:43.8425,blurb:'Drop bags at a Kumayri guesthouse.',detail:'Stay inside the historic district \u2014 a tufa guesthouse puts you in the atmosphere. Then a long welcome lunch.',dur:'1.5 h',cost:'room ~12,000\u201320,000 \u058f',tip:'Family-run guesthouses are the characterful choice.'},
-          {id:'n3',time:'Thu 15:00',title:'Kumayri district, slow wander',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'The historic streets, no rush.',detail:'Roam the carved-balcony townhouses at ease, into courtyards and craft workshops.',dur:'2 h',cost:'Free',tip:'Late light on the black-and-red tufa is the photograph.'},
-          {id:'n4',time:'Thu 17:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Bright ceramics break up the stone.',detail:'The Aslamazyan sisters\u2019 colour-soaked work \u2014 an easy late-afternoon stop.',dur:'45 min',cost:'1,000 \u058f',tip:'Closes ~17\u201318:00 \u2014 go before dinner.'},
-          {id:'n5',time:'Thu 19:30',title:'Dinner & Gyumri pub culture',kind:'Food',tier:'core',lat:40.7888,lng:43.8455,blurb:'The real reward of staying over.',detail:'Hearty food, local beer, live music and that famous wit \u2014 what a day trip can never reach.',dur:'2.5 h',cost:'5,000\u20139,000 \u058f',tip:'Ask your guesthouse where locals actually drink.'},
-          {id:'n6',time:'Thu 22:00',title:'Vardanants Square at night',kind:'Walk',tier:'plus',lat:40.7894,lng:43.8470,blurb:'The lit square and cathedrals after dark.',detail:'A short night stroll \u2014 the floodlit churches close the evening well.',dur:'30 min',cost:'Free',tip:'Cooler and calmer than midday.'},
-          {id:'n7',time:'Fri 08:30',title:'Morning market & bakeries',kind:'Market',tier:'plus',lat:40.7905,lng:43.8488,blurb:'Breakfast where Gyumri shops.',detail:'Fresh bread, cheese and the morning bustle \u2014 the rhythm a day-tripper sleeps through.',dur:'1 h',cost:'~2,000 \u058f',tip:'Buy pastries for the road back.'},
-          {id:'n8',time:'Fri 09:30',title:'Holy Saviour\u2019s & Seven Wounds',kind:'Heritage',tier:'core',lat:40.7894,lng:43.8470,blurb:'The cathedrals in morning light.',detail:'Return to Vardanants Square to go inside both churches \u2014 the reconstruction is moving up close.',dur:'1 h',cost:'Free',tip:'Mornings are quietest for the interiors.'},
-          {id:'n9',time:'Fri 11:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Urban-life museum in a tufa mansion.',detail:'With time on your side, give the social-history museum its due.',dur:'1 h',cost:'1,000 \u058f',tip:'The carved ceilings are worth the entry alone.'},
-          {id:'n10',time:'Fri 14:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back south by early afternoon.',detail:'A relaxed ride back, in good time for any onward plans or a final Yerevan evening.',dur:'~2 h',cost:'as outbound',tip:'You\u2019ll arrive rested rather than wrung out.'}
+      { label:'Artsy', chip:'Artsy', icon:'🎨', route:false, note:'Rambalkoshe is in Arabkir, about 3 km north of the centre, and the Persian Consulate is mostly an outside look unless an exhibition is on. Check Instagram before going.',
+        spots:[
+          {id:'para',time:'Afternoon',title:'Sergey Parajanov Museum',kind:'Museum',tier:'core',lat:40.1789,lng:44.50007,blurb:'Collages, dolls and drawings from the great filmmaker, in an old Yerevan house.',detail:'The museum holds Parajanov’s collages, assemblages and personal items in the Dzoragyugh district above the Hrazdan gorge.',dur:'1–1.5 h',cost:'1,500 ֏ adult; guide 5,000 ֏ in a foreign language; audio guide 3,000 ֏',tip:'Official page lists 10:30–18:00 daily, last entry 17:15. A foreign-language guide is worth booking for the exhibit context.'},
+          {id:'ramb',time:'Check events',title:'Rambalkoshe',kind:'Art collective',tier:'core',lat:40.21243,lng:44.50877,blurb:'Grassroots contemporary art and sound collective in Arabkir.',detail:'An art, sound and music collective and contemporary art museum at 9 Hovsep Arghutyan St, about 3 km north of the centre. It runs exhibitions, performances and festivals, so what you see depends on the date.',dur:'1–2 h',cost:'Varies by event',tip:'One map listing marks it shut, while its Instagram and recent press show it active, so check Instagram @rambal.koshe for events on 13–16 October before going.'},
+          {id:'pers',time:'Anytime',title:'Persian Consulate (historic building)',kind:'Historic art space',tier:'core',lat:40.17636,lng:44.51523,blurb:'Tiny black-tuff consulate with Persian frescoes, 32 Hanrapetutyan St.',detail:'A one-storey historic building that was the Persian consul’s office until 1920, with a mirrored prayer room and Persian-Armenian frescoes. It hosted a pop-up art museum in July–August 2026 and may become a permanent museum, but I could not confirm it is open to visitors in October.',dur:'15–45 min',cost:'Unknown',tip:'Treat it as an exterior look unless an exhibition is on. Check Rambalkoshe’s Instagram or the Charents Museum first.'},
+          {id:'d1e',time:'Afternoon',title:'Center of Contemporary Experimental Art (ACCEA Npak)',kind:'Art Centre',tier:'plus',lat:40.1755,lng:44.5179,blurb:'Post-Soviet Armenia\u2019s pioneering home for experimental art',detail:'Founded in 1992 in the wake of independence, NPAK fills a sprawling government-granted hall near Republic Square \u2014 the Caucasus\u2019s first dedicated contemporary-experimental art centre.',dur:'1 h',cost:'Free / donation',tip:'Programming rotates and the space can be between shows \u2014 check the current exhibition before going.'},
+          {id:'d2a',time:'Morning',title:'AHA Collective \u2014 coffee & design',kind:'Design',tier:'plus',lat:40.1872,lng:44.5132,blurb:'Concept space: specialty coffee, design objects, local makers.',detail:'A calm, well-curated start \u2014 good coffee alongside Armenian design goods. A modern counterpoint to the day\u2019s heritage.',dur:'45 min',cost:'~2,000 \u058f',tip:'Check opening time the night before \u2014 it\u2019s a small independent space.'},
+          {id:'d2c',time:'Midday',title:':DDD Kunst House',kind:'Gallery',tier:'plus',lat:40.1914,lng:44.5198,blurb:'A curator\u2019s apartment turned spontaneous contemporary art house',detail:'An alternative space founded in 2020 by curator Tereza Davtyan, who turned her Mashtots Avenue flat into a gallery during lockdown \u2014 shows appear spontaneously, so visits are by arrangement.',dur:'45 min',cost:'Free',tip:'It\u2019s a private flat (3rd entrance, suite 19) \u2014 message @ddd_kunsthouse on Instagram first to confirm an opening.'},
+          {id:'d3e',time:'Afternoon',title:'Institute for Contemporary Art (ICA)',kind:'Gallery',tier:'plus',lat:40.198,lng:44.496,blurb:'A teaching hub where curators and artists are made',detail:'Less a public gallery than an art-economy laboratory in Arabkir \u2014 its school, library and exhibition hall show work by students and visiting artists rather than a fixed collection.',dur:'1 h',cost:'Free',tip:'No standing collection \u2014 go only when ica.am lists a show, and message ahead since it doubles as a school.'},
+          {id:'d3f',time:'Evening',title:'Boyajian Gallery (SAFA)',kind:'Gallery',tier:'plus',lat:40.1894,lng:44.5166,blurb:'Academy gallery showcasing Armenia\u2019s emerging young artists',detail:'The ground-floor exhibition gallery of the State Academy of Fine Arts (SAFA) on Isahakyan St \u2014 rotating shows of students, graduates and contemporary Armenian artists.',dur:'45 min',cost:'Free',tip:'Open weekday academy hours \u2014 check the current show on safa.am, as it changes often.'},
+        ]},
+      { label:'Beyond Yerevan', chip:'Beyond Yerevan', icon:'🥾', route:false, mapTitle:'Sevan & Dilijan', mapSub:'Day trips · OpenStreetMap', note:'Sevan is ~50 min from Yerevan and Dilijan ~1.5 h. A private driver can link them in one day (my estimate: roughly $80–120 per car, not verified), but a long hike plus Sevan is tight, so pick one long activity.',
+        spots:[
+          {id:'dil',time:'Full day',title:'Dilijan to Haghartsin hike',kind:'Hike',tier:'core',lat:40.74171,lng:44.87222,blurb:'Forest trail from Dilijan to Haghartsin Monastery, at peak autumn colour.',detail:'The Transcaucasian Trail section from Dilijan town to Haghartsin Monastery runs through Dilijan National Park forest, roughly 12–14 km one way (sources differ). Mid-October is usually good for autumn colour, but expect cool, damp woods.',dur:'4–6 h',cost:'Taxi to Dilijan ~17,000 ֏ one way; monastery entry free (not verified)',tip:'Walk one way and book a taxi back from Haghartsin, or have a driver wait. Daylight ends around 18:00. Bring layers and waterproofs. Shorter option: drive to Haghartsin (40.8019, 44.8907) and take a short forest walk.'},
+          {id:'sev',time:'Half day',title:'Lake Sevan & Sevanavank',kind:'Lake & monastery',tier:'core',lat:40.56398,lng:45.01081,blurb:'Monastery peninsula on Armenia’s great mountain lake, ~50 min from Yerevan.',detail:'Sevanavank sits on a peninsula above the lake, about 60 km from Yerevan. It is a scenic stair-climb and lakeside walk rather than a swim: mid-October highs are around 14°C and it is windy by the water.',dur:'1.5–2 h',cost:'Entry not verified (usually free or very small)',tip:'Bring a windproof layer. Combine with Dilijan on the way: Yerevan → Sevan (~50 min) → Dilijan (~45 min) → back is about 3–3.5 h of driving, so pick one long activity.'},
+          {id:'parz',time:'Afternoon',title:'Parz Lake',kind:'Nature',tier:'plus',lat:40.7512,lng:44.9596,blurb:'Small forest lake near Dilijan, an easy stop instead of the long hike.',detail:'A pretty lake in the woods near Dilijan, good for a short, easy walk if you skip the long Haghartsin hike.',dur:'45 min',cost:'Not verified',tip:'Works well on the way between Sevan and Dilijan.'},
+        ]},
+      { label:'Heritage', chip:'Heritage', icon:'🏺', route:false,
+        spots:[
+          {id:'d3a',time:'Morning',title:'Tsitsernakaberd \u2014 Genocide Memorial',kind:'Heritage',tier:'core',lat:40.1542,lng:44.4889,blurb:'The national memorial to the 1915 Genocide.',detail:'A spare, powerful hilltop complex \u2014 the cleft stele, the eternal flame, and an unflinching underground museum.',dur:'2 h',cost:'Free',tip:'Go first thing while it\u2019s quiet and cool; leave emotional space after.'},
+          {id:'d3b',time:'Morning',title:'Matenadaran',kind:'Heritage',tier:'core',lat:40.1944,lng:44.5208,blurb:'Repository of ancient manuscripts.',detail:'Illuminated gospels, medieval science, the largest and smallest Armenian books. Mesrop Mashtots presides on the steps.',dur:'1.5 h',cost:'2,000 \u058f',tip:'The English guided tour is worth it \u2014 the illuminations need context.'},
         ]}
     ];
   }
-
   setPace(p){ this.setState({pace:p}); }
-  setGyumri(g){ this.setState({gyumri:g}); }
   toggle(id){ this.setState(s=>({expanded:{...s.expanded,[id]:!s.expanded[id]}})); }
 
   renderVals(){
@@ -372,11 +355,10 @@ class Component extends DCLogic {
     const showRoute = this.props.showRoute !== false;
     const days = this.data();
     const slots = this.slots();
-    const order = [0,1,3,2];
+    const order = days.map((_,i)=>i);
     const pos = Math.min(this.state.day, days.length-1);
     const day = days[order[pos]];
-    const slot = slots[pos];
-    if(!this._t){ this._t = setInterval(()=>this.setState({now:Date.now()}),1000); }
+        if(!this._t){ this._t = setInterval(()=>this.setState({now:Date.now()}),1000); }
     if(!this._h){ this._h = setInterval(()=>this.setState(s=>({hero:(s.hero+1)%this.heroImages().length})),5500); }
 
     const rootStyle = {
@@ -387,24 +369,17 @@ class Component extends DCLogic {
     };
 
     const tabs = order.map((ci,p)=>{
-      const c = days[ci]; const sl = slots[p]; const active = p===pos;
-      return { kicker:sl.dow, label:c.chip, onClick:()=>this.setState({day:p}),
+      const c = days[ci]; const active = p===pos;
+      return { kicker:c.icon, label:c.chip, onClick:()=>this.setState({day:p}),
         style:{ display:'flex',flexDirection:'column',alignItems:'flex-start',cursor:'pointer',flexShrink:0,
           padding:'6px 12px',borderRadius:'10px',border:'1px solid '+(active?'transparent':T.line),
           background:active?T.accent:T.surface, color:active?T.onAccent:T.ink } };
     });
 
     const segBtn=(active)=>({cursor:'pointer',border:'none',padding:'7px 14px',fontFamily:"'Hanken Grotesk',sans-serif",fontSize:'12.5px',fontWeight:600,background:active?T.accent:'transparent',color:active?T.onAccent:T.muted});
-    const paceOpts=[['relaxed','Relaxed'],['balanced','Balanced'],['full','Full']].map(([v,l])=>({label:l,onClick:()=>this.setPace(v),style:segBtn(this.state.pace===v)}));
-    const gyumriOpts=[['day','Day trip'],['night','Overnight']].map(([v,l])=>({label:l,onClick:()=>this.setGyumri(v),style:segBtn(this.state.gyumri===v)}));
+    const paceOpts=[['relaxed','Essentials'],['balanced','More'],['full','Everything']].map(([v,l])=>({label:l,onClick:()=>this.setPace(v),style:segBtn(this.state.pace===v)}));
 
-    let spots; let note = '';
-    if(day.gyumri){
-      spots = this.state.gyumri==='night' ? day.nightSpots : day.daySpots;
-      note = this.state.gyumri==='night'
-        ? 'Overnight: leave Thu, sleep in a Kumayri guesthouse, roll back to Yerevan midday Fri \u2014 the calmer, more local version.'
-        : 'Single day: out before dawn, back late evening. Rewarding, but transport timing rules the day \u2014 try Overnight for the slower version.';
-    } else { spots = day.spots; }
+    const spots = day.spots; const note = day.note || '';
     const rank={relaxed:0,balanced:1,full:2};
     const tierRank={core:0,plus:1,extra:2};
     const visible = spots.filter(s=>tierRank[s.tier] <= rank[this.state.pace]);
@@ -434,7 +409,7 @@ class Component extends DCLogic {
     });
 
     let routeEl = null;
-    if(showRoute && pins.length>1){
+    if(showRoute && day.route && pins.length>1){
       const pts = visible.filter(s=>s.lat).map(s=>{const p=mv.project(s.lat,s.lng);return p.x+','+p.y;}).join(' ');
       routeEl = React.createElement('svg',{viewBox:'0 0 '+W+' '+H,width:W,height:H,style:{position:'absolute',inset:0,pointerEvents:'none',zIndex:5}},
         React.createElement('polyline',{points:pts,fill:'none',stroke:T.accent,strokeWidth:3,strokeDasharray:'2 7',strokeLinecap:'round',opacity:0.85}));
@@ -455,7 +430,7 @@ class Component extends DCLogic {
     const stars=(n)=>'\u2605'.repeat(n)+'\u2606'.repeat(5-n);
     const hotelCards = this.hotels().map(h=>{
       const tierBg = h.id==='ibis' ? T.accent2 : (h.tier.indexOf('Marriott')>=0||h.tier.indexOf('Luxury')>=0||h.tier.indexOf('venpick')>=0? T.accent : T.muted);
-      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'\u20ac'+h.price, bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
+      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'$'+h.price, bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
         cardStyle:{ background:T.surface, borderRadius:'14px', border:'1px solid '+T.line, overflow:'hidden' },
         photoStyle:{ position:'relative', width:'100%', height:'170px', backgroundImage:'url('+h.img+')', backgroundSize:'cover', backgroundPosition:'center' },
         tierStyle:{position:'absolute', top:'11px', left:'11px', fontFamily:"'Space Mono',monospace", fontSize:'9px', letterSpacing:'.1em', textTransform:'uppercase', color:'#fff', background:tierBg, padding:'4px 9px', borderRadius:'999px', boxShadow:'0 2px 8px rgba(0,0,0,.3)'},
@@ -474,12 +449,12 @@ class Component extends DCLogic {
     const wxHi = Math.max.apply(null, slots.map(s=>s.hi));
     const wxLo = Math.min.apply(null, slots.map(s=>s.lo));
 
-    return { rootStyle, tabs, paceOpts, gyumriOpts, navItems,
+    return { rootStyle, tabs, paceOpts, navItems,
       showPlan:this.state.tab==='plan', showMap:this.state.tab==='map', showPhotos:this.state.tab==='photos', showHotels:this.state.tab==='hotels',
       showDayChips: this.state.tab==='plan' || this.state.tab==='map',
-      day:{kicker:'Day 0'+(pos+1)+' \u00b7 '+slot.dow+' '+slot.dateShort, title:day.label, gyumri:!!day.gyumri, note},
+      day:{kicker:'Pick 0'+(pos+1)+' of 0'+days.length, title:day.label, note},
       cards, pins, tiles, routeEl, hotelCards,
-      mapTitle: day.gyumri?'Gyumri':'Yerevan \u00b7 Kentron', mapSub: day.gyumri?'126 km NW':'OSM · CARTO',
+      mapTitle: day.mapTitle||'Yerevan \u00b7 Kentron', mapSub: day.mapSub||'OpenStreetMap',
       heroSlides, heroDots, heroCounter, onHeroPrev, onHeroNext,
       clockTime, wxHi, wxLo, fxEur:'402 \u058f', fxUsd:'360 \u058f' };
   }
