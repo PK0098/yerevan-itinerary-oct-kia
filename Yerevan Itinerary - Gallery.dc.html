@@ -24,17 +24,17 @@
     <header style="padding:46px 0 22px">
       <div style="display:flex;align-items:baseline;gap:14px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent,#c4542f)">
         <span>Interactive Itinerary</span>
-        <span style="color:var(--muted,#8a7868)">/ Solo</span>
+        <span style="color:var(--muted,#8a7868)">/ The Kia family</span>
       </div>
-      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:74px;line-height:.98;letter-spacing:-.01em;margin-top:14px;color:var(--ink,#2a2018)">Five days in <span style="font-style:italic;color:var(--accent,#c4542f)">Yerevan</span></h1>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:74px;line-height:.98;letter-spacing:-.01em;margin-top:14px;color:var(--ink,#2a2018)">Four days in <span style="font-style:italic;color:var(--accent,#c4542f)">Yerevan</span></h1>
       <div style="display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:20px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--muted,#8a7868)">
-        <span>30 JUN – 5 JUL 2026</span>
+        <span>13 – 16 OCT 2026</span>
         <span style="color:var(--line,#e6d8c6)">·</span>
-        <span>HOT &amp; DRY · 30–35°C</span>
+        <span>MILD &amp; CRISP · 8–21°C</span>
         <span style="color:var(--line,#e6d8c6)">·</span>
         <span>FIRST VISIT · GALLERIES + HERITAGE</span>
       </div>
-      <p style="max-width:640px;margin-top:18px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Yerevan glows in pink tufa stone come afternoon. The plan keeps heritage and galleries for the cool mornings and leaves the city's open-air evenings loose.</p>
+      <p style="max-width:640px;margin-top:18px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Yerevan glows in pink tufa stone come afternoon. The plan keeps heritage and galleries for the mornings and leaves the city's open-air evenings loose — bring a warm layer for after dark.</p>
 
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px">
         <div style="background:var(--surface,#fffaf3);border:1px solid var(--line,#e6d8c6);border-radius:9px;padding:14px 16px">
@@ -48,7 +48,7 @@
           <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent,#c4542f);margin-top:6px">{{ countSub }}</div>
         </div>
         <div style="background:var(--surface,#fffaf3);border:1px solid var(--line,#e6d8c6);border-radius:9px;padding:14px 16px">
-          <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#8a7868)">Weather · 30 Jun–5 Jul</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted,#8a7868)">Weather · 13–16 Oct</div>
           <div style="display:flex;align-items:center;gap:10px;margin-top:9px">
             <span style="width:15px;height:15px;border-radius:50%;background:var(--accent2,#b1812f);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent2,#b1812f) 22%,transparent);flex-shrink:0"></span>
             <span style="font-family:'Space Mono',monospace;font-size:23px;font-weight:700;color:var(--ink,#2a2018);letter-spacing:-.02em">{{ wxHi }}° / {{ wxLo }}°</span>
@@ -221,7 +221,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;apricot&quot;,&quot;stone&quot;,&quot;pomegranate&quot;],&quot;default&quot;:&quot;apricot&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showRoute&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
-  state = { day: 0, pace: 'balanced', gyumri: 'day', expanded: {}, hovered: null, order:[0,1,2,3,4], dragFrom:null, now:Date.now(), hero:0 };
+  state = { day: 0, pace: 'balanced', gyumri: 'day', expanded: {}, hovered: null, order:[0,1,3,2], dragFrom:null, now:Date.now(), hero:0 };
   componentWillUnmount(){ if(this._t) clearInterval(this._t); if(this._h) clearInterval(this._h); }
   handleDragEnter(to){
     const from = this.state.dragFrom;
@@ -236,11 +236,10 @@ class Component extends DCLogic {
   }
   slots(){
     return [
-      {dow:'MON',dateShort:'30 Jun',hi:31,lo:17},
-      {dow:'TUE',dateShort:'1 Jul',hi:33,lo:18},
-      {dow:'WED',dateShort:'2 Jul',hi:34,lo:19},
-      {dow:'THU',dateShort:'3 Jul',hi:34,lo:19},
-      {dow:'FRI',dateShort:'4 Jul',hi:32,lo:18}
+      {dow:'TUE',dateShort:'13 Oct',hi:21,lo:9},
+      {dow:'WED',dateShort:'14 Oct',hi:20,lo:9},
+      {dow:'THU',dateShort:'15 Oct',hi:19,lo:8},
+      {dow:'FRI',dateShort:'16 Oct',hi:19,lo:8}
     ];
   }
   heroImages(){
@@ -296,7 +295,7 @@ class Component extends DCLogic {
           {id:'d1d',time:'14:30',title:'Lunch at Lavash Restaurant; reservation required.',kind:'Food',tier:'plus',lat:40.183,lng:44.5163,blurb:'Let\u2019s order some Armenian classics and Napol\u00e9on cake.',detail:'A colourful, design-forward room on Tumanyan Street reimagining Armenian home cooking \u2014 fresh-baked lavash, tolma and barbecue with a playful streak.',dur:'1.5 h',cost:'6,000\u201312,000 \u058f',tip:'Book ahead and ask to watch the lavash baked in the tonir; start with the cheese-and-herb platter.'},
           {id:'d1e',time:'16:00',title:'Center of Contemporary Experimental Art (ACCEA Npak)',kind:'Art Centre',tier:'plus',lat:40.1755,lng:44.5179,blurb:'Post-Soviet Armenia\u2019s pioneering home for experimental art',detail:'Founded in 1992 in the wake of independence, NPAK fills a sprawling government-granted hall near Republic Square \u2014 the Caucasus\u2019s first dedicated contemporary-experimental art centre.',dur:'1 h',cost:'Free / donation',tip:'Programming rotates and the space can be between shows \u2014 check the current exhibition before going.'},
           {id:'d1f',time:'18:00',title:'Northern Avenue & Swan Lake',kind:'Walk',tier:'plus',lat:40.1828,lng:44.5128,blurb:'Pedestrian boulevard linking square to opera.',detail:'Stroll the marble Northern Avenue up to the Opera and Swan Lake as the light turns gold and the city comes outdoors.',dur:'45 min',cost:'Free',tip:'Buskers and ice-cream carts appear around dusk \u2014 prime first-evening atmosphere.'},
-          {id:'d1g',time:'21:00',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced light show through the summer \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Shows usually run ~21:00\u201323:00 in summer; grab a bench on the museum side.'}
+          {id:'d1g',time:'21:00',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced light show through the warmer months — check it is still on in mid-October \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Shows usually run ~21:00\u201323:00 in summer; grab a bench on the museum side.'}
         ]},
       { label:'Cascade &\u00a0the Art Quarter', chip:'Cascade',
         spots:[
@@ -305,7 +304,7 @@ class Component extends DCLogic {
           {id:'d2c',time:'13:00',title:':DDD Kunst House',kind:'Gallery',tier:'core',lat:40.1914,lng:44.5198,blurb:'A curator\u2019s apartment turned spontaneous contemporary art house',detail:'An alternative space founded in 2020 by curator Tereza Davtyan, who turned her Mashtots Avenue flat into a gallery during lockdown \u2014 shows appear spontaneously, so visits are by arrangement.',dur:'45 min',cost:'Free',tip:'It\u2019s a private flat (3rd entrance, suite 19) \u2014 message @ddd_kunsthouse on Instagram first to confirm an opening.'},
           {id:'d2d',time:'13:30',title:'Lunch at the Dulmama',kind:'Food',tier:'plus',lat:40.1805,lng:44.5159,blurb:'Yerevan\u2019s storied fine-dining table beneath an old grapevine',detail:'An intimate, upmarket Armenian restaurant on Pushkin Street, serving since 1998 \u2014 its courtyard shaded by a vine older than independence, pairing heritage dolma and lamb with a serious wine list.',dur:'2 h',cost:'12,000\u201325,000 \u058f',tip:'Reservations essential \u2014 request the vine-covered inner courtyard and order the namesake dolma.'},
           {id:'d2e',time:'16:30',title:'Saryan Street wine walk',kind:'Wine',tier:'extra',lat:40.1846,lng:44.5118,blurb:'Yerevan\u2019s wine-bar strip beside the Opera.',detail:'A short street packed with bars pouring Armenian volcanic-soil wines \u2014 areni, voskehat and more.',dur:'1 h',cost:'from 1,500 \u058f/glass',tip:'Areni Noir is the signature red; ask for Vayots Dzor.'},
-          {id:'d2f',time:'15:00',title:'Opera House',kind:'Landmark',tier:'plus',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the summer programme \u2014 tickets are often very affordable.'},
+          {id:'d2f',time:'15:00',title:'Opera House',kind:'Landmark',tier:'plus',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the current programme \u2014 tickets are often very affordable.'},
           {id:'d2g',time:'19:00',title:'Curatorial Conversation I \u0531\u0580\u0561\u0584\u057d \u0627\u0631\u0633 Araks River Bridge-Museum',kind:'Talk',tier:'core',lat:40.1852,lng:44.5142,blurb:'A visionary river-museum dreaming borders into bridges',detail:'A conceptual binational art project by curator Nairi Khatchadourian, imagining a museum on the Araks at the Armenia\u2013Iran border \u2014 the curatorial conversation is a talk around that vision rather than a fixed venue.',dur:'1 h',cost:'Free',tip:'Treat this as a lecture to catch, not a site to visit \u2014 confirm an actual Yerevan event date first.'},
           {id:'d2h',time:'21:00',title:'13:20 pub',kind:'Food',tier:'plus',lat:40.1801,lng:44.5118,blurb:'Hidden ruin bar pouring 100+ Armenian homemade spirits',detail:'A tiny DIY ruin bar on the second floor of a 200-year-old building \u2014 all local Armenian distillates, tinctures and grandmother-recipe schnapps, under a clock frozen at 13:20.',dur:'1.5 h',cost:'from 1,500 \u058f/drink',tip:'Tucked away on Pavstos Buzand opposite the Ramada \u2014 DM @13_20.am to confirm it\u2019s open before heading over.'}
         ]},
@@ -319,14 +318,6 @@ class Component extends DCLogic {
           {id:'d3f',time:'18:00',title:'Boyajian Gallery (SAFA)',kind:'Gallery',tier:'plus',lat:40.1894,lng:44.5166,blurb:'Academy gallery showcasing Armenia\u2019s emerging young artists',detail:'The ground-floor exhibition gallery of the State Academy of Fine Arts (SAFA) on Isahakyan St \u2014 rotating shows of students, graduates and contemporary Armenian artists.',dur:'45 min',cost:'Free',tip:'Open weekday academy hours \u2014 check the current show on safa.am, as it changes often.'},
           {id:'d3g',time:'19:00',title:'Lovers\u2019 Park, quiet evening',kind:'Walk',tier:'plus',lat:40.1888,lng:44.5188,blurb:'Landscaped gardens for a slow night.',detail:'A calm, manicured park to decompress \u2014 water, stone and shade, with a good cafe inside.',dur:'45 min',cost:'Free',tip:'A deliberately low-key evening \u2014 the morning earns it.'}
         ]},
-      { label:'Move, Swim,\u00a0Breathe', chip:'Rest day',
-        spots:[
-          {id:'d4a',time:'08:00',title:'Morning yoga',kind:'Wellness',tier:'core',lat:40.1852,lng:44.5160,blurb:'Start the slow day with a class before the heat.',detail:'A gentle morning flow before the sun is high \u2014 several studios in the centre run drop-in classes; an open rooftop or garden session is ideal.',dur:'1.5 h',cost:'~3,000 \u058f',tip:'Book a drop-in the day before; ask whether mats and water are provided.'},
-          {id:'d4b',time:'10:30',title:'Pool & sunbathing',kind:'Wellness',tier:'core',lat:40.1808,lng:44.5082,blurb:'Long, lazy poolside stretch \u2014 the heart of the rest day.',detail:'Spend the warm middle of the day by the water. Many Yerevan hotels sell day passes to their pools and sun-decks if yours doesn\u2019t have one.',dur:'3.5 h',cost:'day pass ~5,000\u201310,000 \u058f',tip:'Reserve a day pass in advance in July \u2014 popular pools cap numbers on hot days.'},
-          {id:'d4c',time:'14:00',title:'Light poolside lunch',kind:'Food',tier:'plus',lat:40.1810,lng:44.5085,blurb:'Salads, fruit and cold drinks, no rush.',detail:'Keep it light and cool \u2014 apricots are in peak season in early July, so eat them at their best.',dur:'1 h',cost:'~4,000 \u058f',tip:'Apricot (\u0426\u056b\u0580\u0561\u0576) is the national fruit and July is prime time \u2014 buy a bagful from a street vendor.'},
-          {id:'d4d',time:'16:00',title:'Saint Gregory The Illuminator Cathedral (Optional)',kind:'Rest',tier:'extra',lat:40.1719,lng:44.5169,blurb:'Armenia\u2019s largest cathedral, vast and luminous in pale stone',detail:'Consecrated in 2001 for 1,700 years of Armenian Christianity, this sweeping modern cathedral on Tigran Mets seats some 1,700 and shelters Saint Gregory\u2019s relics.',dur:'45 min',cost:'Free',tip:'Dress modestly and cover shoulders; mid-morning light through the apse is the quietest.'},
-          {id:'d4e',time:'20:00',title:'Relaxed dinner',kind:'Food',tier:'plus',lat:40.1842,lng:44.5145,blurb:'Easy neighbourhood dinner to close the day.',detail:'Nothing ambitious \u2014 a courtyard restaurant, lavash fresh from the tonir, a glass of wine. Early night before Gyumri.',dur:'1.5 h',cost:'5,000\u20138,000 \u058f',tip:'If tomorrow is the day-trip, prep the early train/transport tonight.'}
-        ]},
       { label:'Gyumri', chip:'Gyumri', gyumri:true,
         daySpots:[
           {id:'g1',time:'06:30',title:'Early start to Gyumri',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Drive or train northwest to Armenia\u2019s second city (~126 km).',detail:'Fastest is a car/taxi (~2 h each way). The train is slower (~3 h) but cheap and scenic across the Shirak plain. Leave early to bank the cool morning hours.',dur:'~2 h',cost:'train ~1,000 \u058f / car ~25,000 \u058f',tip:'On a single day, transport is the whole constraint \u2014 lock it in the night before.'},
@@ -339,16 +330,16 @@ class Component extends DCLogic {
           {id:'g8',time:'19:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back on the road south, in by late evening.',detail:'Aim to be moving by early evening so you\u2019re back in Yerevan for a relaxed last night.',dur:'~2 h',cost:'as morning',tip:'Confirm the return train time at the station on arrival \u2014 schedules are sparse.'}
         ],
         nightSpots:[
-          {id:'n1',time:'Fri 11:00',title:'Late, unhurried departure',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'No dawn alarm \u2014 the overnight lets you ease north.',detail:'With a night in hand, leave mid-morning. Same ~2 h by car or ~3 h by train, but none of the day-trip clock-watching.',dur:'~2 h',cost:'as day trip',tip:'The overnight is the calmer, more local way to do Gyumri \u2014 highly recommended over the rush.'},
-          {id:'n2',time:'Fri 13:30',title:'Lunch & check in',kind:'Food',tier:'core',lat:40.7875,lng:43.8425,blurb:'Drop bags at a Kumayri guesthouse, then eat.',detail:'Stay inside the historic district if you can \u2014 a tufa guesthouse puts you in the atmosphere. Then a long welcome lunch.',dur:'1.5 h',cost:'room ~12,000\u201320,000 \u058f',tip:'Family-run guesthouses in Kumayri are the characterful choice.'},
-          {id:'n3',time:'Fri 15:00',title:'Kumayri district, slow wander',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'The historic streets without the day-trip rush.',detail:'Roam the carved-balcony townhouses at ease, ducking into courtyards and craft workshops as you find them.',dur:'2 h',cost:'Free',tip:'Late afternoon light on the black-and-red tufa is the photograph.'},
-          {id:'n4',time:'Fri 17:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Bright ceramics break up the stone.',detail:'The Aslamazyan sisters\u2019 colour-soaked work \u2014 an easy, joyful late-afternoon stop.',dur:'45 min',cost:'1,000 \u058f',tip:'Check it closes around 17\u201318:00 \u2014 go before dinner.'},
-          {id:'n5',time:'Fri 19:30',title:'Dinner & Gyumri pub culture',kind:'Food',tier:'core',lat:40.7888,lng:43.8455,blurb:'The real reward of staying over.',detail:'Gyumri\u2019s evenings \u2014 hearty food, local beer, live music and that famous wit \u2014 are what a day trip can never reach. Settle in.',dur:'2.5 h',cost:'5,000\u20139,000 \u058f',tip:'Ask your guesthouse where the locals actually drink.'},
-          {id:'n6',time:'Fri 22:00',title:'Vardanants Square at night',kind:'Walk',tier:'plus',lat:40.7894,lng:43.8470,blurb:'The lit square and cathedrals after dark.',detail:'A short night stroll \u2014 the floodlit churches and quiet square close the evening well.',dur:'30 min',cost:'Free',tip:'Cooler and calmer than midday \u2014 the nicest time on the square.'},
-          {id:'n7',time:'Sat 08:30',title:'Morning market & bakeries',kind:'Market',tier:'plus',lat:40.7905,lng:43.8488,blurb:'Breakfast where Gyumri shops.',detail:'Fresh bread, cheese and the morning bustle \u2014 the everyday rhythm a day-tripper sleeps through.',dur:'1 h',cost:'~2,000 \u058f',tip:'Buy pastries for the road back.'},
-          {id:'n8',time:'Sat 09:30',title:'Holy Saviour\u2019s & Seven Wounds',kind:'Heritage',tier:'core',lat:40.7894,lng:43.8470,blurb:'The cathedrals, unhurried, in morning light.',detail:'Return to Vardanants Square to actually go inside both churches \u2014 the reconstruction of Holy Saviour\u2019s is moving up close.',dur:'1 h',cost:'Free',tip:'Mornings are quietest for the interiors.'},
-          {id:'n9',time:'Sat 11:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Urban-life museum in a black-tufa mansion.',detail:'With time on your side, give the social-history museum its due \u2014 crafts, interiors and the 1988 earthquake.',dur:'1 h',cost:'1,000 \u058f',tip:'The mansion\u2019s carved ceilings are worth the entry alone.'},
-          {id:'n10',time:'Sat 14:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back south by early afternoon.',detail:'A relaxed drive or train back, in good time for any onward plans or a final Yerevan evening on 5 July.',dur:'~2 h',cost:'as outbound',tip:'You\u2019ll arrive rested rather than wrung out \u2014 the case for the overnight.'}
+          {id:'n1',time:'Thu 11:00',title:'Late, unhurried departure',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'No dawn alarm \u2014 the overnight lets you ease north.',detail:'With a night in hand, leave mid-morning. Same ~2 h by car or ~3 h by train, but none of the day-trip clock-watching.',dur:'~2 h',cost:'as day trip',tip:'The overnight is the calmer, more local way to do Gyumri \u2014 highly recommended over the rush.'},
+          {id:'n2',time:'Thu 13:30',title:'Lunch & check in',kind:'Food',tier:'core',lat:40.7875,lng:43.8425,blurb:'Drop bags at a Kumayri guesthouse, then eat.',detail:'Stay inside the historic district if you can \u2014 a tufa guesthouse puts you in the atmosphere. Then a long welcome lunch.',dur:'1.5 h',cost:'room ~12,000\u201320,000 \u058f',tip:'Family-run guesthouses in Kumayri are the characterful choice.'},
+          {id:'n3',time:'Thu 15:00',title:'Kumayri district, slow wander',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'The historic streets without the day-trip rush.',detail:'Roam the carved-balcony townhouses at ease, ducking into courtyards and craft workshops as you find them.',dur:'2 h',cost:'Free',tip:'Late afternoon light on the black-and-red tufa is the photograph.'},
+          {id:'n4',time:'Thu 17:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Bright ceramics break up the stone.',detail:'The Aslamazyan sisters\u2019 colour-soaked work \u2014 an easy, joyful late-afternoon stop.',dur:'45 min',cost:'1,000 \u058f',tip:'Check it closes around 17\u201318:00 \u2014 go before dinner.'},
+          {id:'n5',time:'Thu 19:30',title:'Dinner & Gyumri pub culture',kind:'Food',tier:'core',lat:40.7888,lng:43.8455,blurb:'The real reward of staying over.',detail:'Gyumri\u2019s evenings \u2014 hearty food, local beer, live music and that famous wit \u2014 are what a day trip can never reach. Settle in.',dur:'2.5 h',cost:'5,000\u20139,000 \u058f',tip:'Ask your guesthouse where the locals actually drink.'},
+          {id:'n6',time:'Thu 22:00',title:'Vardanants Square at night',kind:'Walk',tier:'plus',lat:40.7894,lng:43.8470,blurb:'The lit square and cathedrals after dark.',detail:'A short night stroll \u2014 the floodlit churches and quiet square close the evening well.',dur:'30 min',cost:'Free',tip:'Cooler and calmer than midday \u2014 the nicest time on the square.'},
+          {id:'n7',time:'Fri 08:30',title:'Morning market & bakeries',kind:'Market',tier:'plus',lat:40.7905,lng:43.8488,blurb:'Breakfast where Gyumri shops.',detail:'Fresh bread, cheese and the morning bustle \u2014 the everyday rhythm a day-tripper sleeps through.',dur:'1 h',cost:'~2,000 \u058f',tip:'Buy pastries for the road back.'},
+          {id:'n8',time:'Fri 09:30',title:'Holy Saviour\u2019s & Seven Wounds',kind:'Heritage',tier:'core',lat:40.7894,lng:43.8470,blurb:'The cathedrals, unhurried, in morning light.',detail:'Return to Vardanants Square to actually go inside both churches \u2014 the reconstruction of Holy Saviour\u2019s is moving up close.',dur:'1 h',cost:'Free',tip:'Mornings are quietest for the interiors.'},
+          {id:'n9',time:'Fri 11:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Urban-life museum in a black-tufa mansion.',detail:'With time on your side, give the social-history museum its due \u2014 crafts, interiors and the 1988 earthquake.',dur:'1 h',cost:'1,000 \u058f',tip:'The mansion\u2019s carved ceilings are worth the entry alone.'},
+          {id:'n10',time:'Fri 14:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back south by early afternoon.',detail:'A relaxed drive or train back, in good time for check-out and any onward plans.',dur:'~2 h',cost:'as outbound',tip:'You\u2019ll arrive rested rather than wrung out \u2014 the case for the overnight.'}
         ]}
     ];
   }
@@ -462,11 +453,11 @@ class Component extends DCLogic {
     const now = this.state.now || Date.now();
     let clockTime='\u2014\u2014:\u2014\u2014';
     try { clockTime = new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Yerevan',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date(now)); } catch(e){}
-    const tripStart = new Date('2026-06-30T00:00:00+04:00').getTime();
-    const tripEnd = new Date('2026-07-05T00:00:00+04:00').getTime();
+    const tripStart = new Date('2026-10-13T00:00:00+04:00').getTime();
+    const tripEnd = new Date('2026-10-17T00:00:00+04:00').getTime();
     const tripDays = Math.round((tripEnd-tripStart)/86400000);
     const countLabel = tripDays+' days';
-    const countSub = (tripDays-1)+' nights \u00b7 solo';
+    const countSub = (tripDays-1)+' nights \u00b7 3 adults';
     const wxHi = Math.max.apply(null, slots.map(s=>s.hi));
     const wxLo = Math.min.apply(null, slots.map(s=>s.lo));
 
@@ -475,7 +466,7 @@ class Component extends DCLogic {
       day:{kicker:'Day 0'+(pos+1)+' \u00b7 '+slot.dow+' '+slot.dateShort, title:day.label, gyumri:!!day.gyumri, note},
       cards, pins, tiles, routeEl, stopsLabel, mapTitle, mapSub,
       clockTime, clockZone:'AMT \u00b7 UTC+4', countLabel, countSub,
-      wxHi, wxLo, wxNote:'seasonal high / low \u00b7 hot, dry, sunny',
+      wxHi, wxLo, wxNote:'seasonal high / low \u00b7 mild, crisp, mostly sunny',
       fxEur:'415 \u058f', fxUsd:'365 \u058f' };
   }
 }

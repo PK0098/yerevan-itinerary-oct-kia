@@ -24,11 +24,11 @@
     <div style="padding:18px 16px 12px;flex-shrink:0">
       <div style="display:flex;align-items:baseline;justify-content:space-between">
         <div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#c4542f)">Solo · 5 days</div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent,#c4542f)">Kia family · 4 days</div>
           <div style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;line-height:1;color:var(--ink,#2a2018);margin-top:2px">Yerevan</div>
         </div>
         <div style="text-align:right;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted,#8a7868);line-height:1.5">
-          <div>30 JUN–5 JUL</div>
+          <div>13–16 OCT</div>
           <div style="color:var(--accent,#c4542f)">{{ clockTime }}</div>
         </div>
       </div>
@@ -188,7 +188,7 @@
       <sc-if value="{{ showHotels }}" hint-placeholder-val="{{ false }}">
         <div>
           <div style="margin:8px 0 12px">
-            <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#c4542f)">Where to stay · 1–5 Jul · 4 nights</span>
+            <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#c4542f)">Where to stay · 13–16 Oct · 3 nights</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:13px">
             <sc-for list="{{ hotelCards }}" as="h" hint-placeholder-count="6">
@@ -208,7 +208,7 @@
                   <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line,#e6d8c6)">
                     <div>
                       <span style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--ink,#2a2018);letter-spacing:-.02em">{{ h.priceLabel }}</span>
-                      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#8a7868);margin-left:3px">/ night</span>
+                      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#8a7868);margin-left:3px">/ night</span><div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:var(--muted,#8a7868);margin-top:3px">{{ h.stay }}</div>
                     </div>
                     <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">Booking.com ↗</a>
                   </div>
@@ -216,7 +216,7 @@
               </div>
             </sc-for>
           </div>
-          <p style="margin-top:16px;font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Photos from each hotel’s official listing. Links open Booking.com in a new tab, pre-set to 1–5 Jul 2026 · 1 guest · 1 room.</p>
+          <p style="margin-top:16px;font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Photos from each hotel’s official listing. Links open Booking.com in a new tab, pre-set to 13–16 Oct 2026 · 3 adults. Prices are the cheapest Booking.com rate found for those dates, per night for the whole party, before taxes &amp; fees (~20%).</p>
         </div>
       </sc-if>
 
@@ -237,15 +237,14 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:442,&quot;height&quot;:914},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;apricot&quot;,&quot;stone&quot;,&quot;pomegranate&quot;],&quot;default&quot;:&quot;apricot&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showRoute&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
-  state = { day: 0, pace: 'balanced', gyumri: 'day', expanded: {}, hovered: null, order:[0,1,2,3,4], now:Date.now(), hero:0, tab:'plan' };
+  state = { day: 0, pace: 'balanced', gyumri: 'day', expanded: {}, hovered: null, order:[0,1,3,2], now:Date.now(), hero:0, tab:'plan' };
   componentWillUnmount(){ if(this._t) clearInterval(this._t); if(this._h) clearInterval(this._h); }
   slots(){
     return [
-      {dow:'MON',dateShort:'30 Jun',hi:31,lo:17},
-      {dow:'TUE',dateShort:'1 Jul',hi:33,lo:18},
-      {dow:'WED',dateShort:'2 Jul',hi:34,lo:19},
-      {dow:'THU',dateShort:'3 Jul',hi:34,lo:19},
-      {dow:'FRI',dateShort:'4 Jul',hi:32,lo:18}
+      {dow:'TUE',dateShort:'13 Oct',hi:21,lo:9},
+      {dow:'WED',dateShort:'14 Oct',hi:20,lo:9},
+      {dow:'THU',dateShort:'15 Oct',hi:19,lo:8},
+      {dow:'FRI',dateShort:'16 Oct',hi:19,lo:8}
     ];
   }
   heroImages(){
@@ -261,17 +260,15 @@ class Component extends DCLogic {
   }
   hotels(){
     return [
-      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', price:165, loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower, panoramic views, spa & rooftop bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'Courtyard by Marriott Yerevan'},
-      {id:'marriott', name:'Armenia Marriott', tier:'Marriott · 5★', stars:5, score:'8.7', price:185, loc:'Republic Square · Kentron', note:'The classic address right on the main square.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNMC/evnmc-exterior-0025-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'Armenia Marriott Hotel Yerevan'},
-      {id:'alexander', name:'The Alexander', tier:'Luxury Collection', stars:5, score:'9.0', price:245, loc:'Abovyan Street · Kentron', note:'Polished luxury flagship — indoor pool, fine dining.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNLC/evnlc-atelier-6045-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'The Alexander a Luxury Collection Hotel Yerevan'},
-      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'8.8', price:150, loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star near the Opera and Cascade.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
-      {id:'tufenkian', name:'Tufenkian Historic', tier:'Boutique', stars:4, score:'8.9', price:115, loc:'Hanrapetutyan St · Old Yerevan', note:'Handwoven carpets and Armenian craft — real character.', img:'https://historic-yerevan.tufenkianheritage.com/upload/iblock/f32/10scxaoqkxhespsk2byotfjktenp4tam.jpeg', book:'Tufenkian Historic Yerevan Hotel'},
-      {id:'ibis', name:'ibis Yerevan Center', tier:'Best value', stars:3, score:'8.6', price:72, loc:'Near Republic Sq · Kentron', note:'Smart, reliable budget pick — walk everywhere.', img:'https://www.ahstatic.com/photos/7309_ho_00_p_1024x768.jpg', book:'ibis Yerevan Center'},
-      {id:'silkroad', name:'Silk Road', tier:'Garden boutique', stars:3, score:'9.3', price:78, loc:'Ayghedzor St · Kentron', note:'Tranquil garden boutique with Armenian-craft rooms — superb breakfast, a short walk from the Cascade.', img:'https://srhotelarmenia.com/components/com_megashop/access/media/accomodation/room_gallery_1693770653169377065364f4e39dbe386.jpg', book:'https://www.booking.com/hotel/am/silk-road.html'}
+      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', price:519, rooms:2, stay:'2 twin rooms · €1,558 for 3 nights', loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower, panoramic views, spa & rooftop bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/courtyard-by-marriott-yerevan.html'},
+      {id:'marriott', name:'Armenia Marriott', tier:'Marriott · 5★', stars:5, score:'8.7', price:351, rooms:1, stay:'1 room for 3 · €1,052 for 3 nights', loc:'Republic Square · Kentron', note:'The classic address right on the main square.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNMC/evnmc-exterior-0025-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/marriott-armenia-yerevan.html'},
+      {id:'alexander', name:'The Alexander', tier:'Luxury Collection', stars:5, score:'9.1', price:781, rooms:1, stay:'1 room for 3 · €2,344 for 3 nights', loc:'Abovyan Street · Kentron', note:'Polished luxury flagship — indoor pool, fine dining.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNLC/evnlc-atelier-6045-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/the-alexander.html'},
+      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'9.3', price:478, rooms:1, stay:'Junior Suite for 3 · €1,434 for 3 nights', loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star near the Opera and Cascade.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
+      {id:'ibis', name:'ibis Yerevan Center', tier:'Best value', stars:3, score:'8.6', price:377, rooms:2, stay:'2 rooms · €1,130 for 3 nights', loc:'Near Republic Sq · Kentron', note:'Smart, reliable budget pick — walk everywhere.', img:'https://www.ahstatic.com/photos/7309_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/ibis-yerevan-center.html'},
     ];
   }
-  bookingUrl(name){
-    var q='checkin=2026-07-01&checkout=2026-07-05&group_adults=1&no_rooms=1&group_children=0';
+  bookingUrl(name,rooms){
+    var q='checkin=2026-10-13&checkout=2026-10-16&group_adults=3&no_rooms='+(rooms||1)+'&group_children=0&selected_currency=EUR';
     if(/^https?:\/\//.test(name)) return name+(name.indexOf('?')<0?'?':'&')+q;
     return 'https://www.booking.com/searchresults.html?ss='+encodeURIComponent(name)+'&'+q;
   }
@@ -317,7 +314,7 @@ class Component extends DCLogic {
           {id:'d1d',time:'14:30',title:'Lunch at Lavash Restaurant; reservation required.',kind:'Food',tier:'plus',lat:40.183,lng:44.5163,blurb:'Let\u2019s order some Armenian classics and Napol\u00e9on cake.',detail:'A colourful, design-forward room on Tumanyan Street reimagining Armenian home cooking \u2014 fresh-baked lavash, tolma and barbecue with a playful streak.',dur:'1.5 h',cost:'6,000\u201312,000 \u058f',tip:'Book ahead and ask to watch the lavash baked in the tonir; start with the cheese-and-herb platter.'},
           {id:'d1e',time:'16:00',title:'Center of Contemporary Experimental Art (ACCEA Npak)',kind:'Art Centre',tier:'plus',lat:40.1755,lng:44.5179,blurb:'Post-Soviet Armenia\u2019s pioneering home for experimental art',detail:'Founded in 1992 in the wake of independence, NPAK fills a sprawling government-granted hall near Republic Square \u2014 the Caucasus\u2019s first dedicated contemporary-experimental art centre.',dur:'1 h',cost:'Free / donation',tip:'Programming rotates and the space can be between shows \u2014 check the current exhibition before going.'},
           {id:'d1f',time:'18:00',title:'Northern Avenue & Swan Lake',kind:'Walk',tier:'plus',lat:40.1828,lng:44.5128,blurb:'Pedestrian boulevard linking square to opera.',detail:'Stroll marble Northern Avenue to the Opera and Swan Lake as the light turns gold.',dur:'45 min',cost:'Free',tip:'Buskers and ice-cream carts appear around dusk.'},
-          {id:'d1g',time:'21:00',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced show all summer \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Runs ~21:00\u201323:00; grab a bench on the museum side.'}
+          {id:'d1g',time:'21:00',title:'Singing Fountains',kind:'Evening',tier:'plus',lat:40.1775,lng:44.5139,blurb:'Nightly choreographed water-and-light show.',detail:'Back at Republic Square, the fountains run a music-synced show in season — check it is still on in mid-October \u2014 a proper Yerevan ritual.',dur:'45 min',cost:'Free',tip:'Runs ~21:00\u201323:00; grab a bench on the museum side.'}
         ]},
       { label:'Cascade Views & Wine Streets', chip:'Cascade',
         spots:[
@@ -326,7 +323,7 @@ class Component extends DCLogic {
           {id:'d2c',time:'13:00',title:':DDD Kunst House',kind:'Gallery',tier:'core',lat:40.1914,lng:44.5198,blurb:'A curator\u2019s apartment turned spontaneous contemporary art house',detail:'An alternative space founded in 2020 by curator Tereza Davtyan, who turned her Mashtots Avenue flat into a gallery during lockdown \u2014 shows appear spontaneously, so visits are by arrangement.',dur:'45 min',cost:'Free',tip:'It\u2019s a private flat (3rd entrance, suite 19) \u2014 message @ddd_kunsthouse on Instagram first to confirm an opening.'},
           {id:'d2d',time:'13:30',title:'Lunch at the Dulmama',kind:'Food',tier:'plus',lat:40.1805,lng:44.5159,blurb:'Yerevan\u2019s storied fine-dining table beneath an old grapevine',detail:'An intimate, upmarket Armenian restaurant on Pushkin Street, serving since 1998 \u2014 its courtyard shaded by a vine older than independence, pairing heritage dolma and lamb with a serious wine list.',dur:'2 h',cost:'12,000\u201325,000 \u058f',tip:'Reservations essential \u2014 request the vine-covered inner courtyard and order the namesake dolma.'},
           {id:'d2e',time:'16:30',title:'Saryan Street wine walk',kind:'Wine',tier:'extra',lat:40.1846,lng:44.5118,blurb:'Yerevan\u2019s wine-bar strip beside the Opera.',detail:'A short street packed with bars pouring Armenian volcanic-soil wines \u2014 areni, voskehat and more.',dur:'1 h',cost:'from 1,500 \u058f/glass',tip:'Areni Noir is the signature red; ask for Vayots Dzor.'},
-          {id:'d2f',time:'15:00',title:'Opera House',kind:'Landmark',tier:'plus',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the summer programme \u2014 tickets are often very affordable.'},
+          {id:'d2f',time:'15:00',title:'Opera House',kind:'Landmark',tier:'plus',lat:40.1857,lng:44.5139,blurb:'Tamanyan\u2019s grand circular landmark on Freedom Square',detail:'The Spendiaryan Opera anchors the cultural heart; the park and Swan Lake are pure Yerevan promenade.',dur:'40 min',cost:'Free (exterior)',tip:'Check the current programme \u2014 tickets are often very affordable.'},
           {id:'d2g',time:'19:00',title:'Curatorial Conversation I \u0531\u0580\u0561\u0584\u057d \u0627\u0631\u0633 Araks River Bridge-Museum',kind:'Talk',tier:'core',lat:40.1852,lng:44.5142,blurb:'A visionary river-museum dreaming borders into bridges',detail:'A conceptual binational art project by curator Nairi Khatchadourian, imagining a museum on the Araks at the Armenia\u2013Iran border \u2014 the curatorial conversation is a talk around that vision rather than a fixed venue.',dur:'1 h',cost:'Free',tip:'Treat this as a lecture to catch, not a site to visit \u2014 confirm an actual Yerevan event date first.'},
           {id:'d2h',time:'21:00',title:'13:20 pub',kind:'Food',tier:'plus',lat:40.1801,lng:44.5118,blurb:'Hidden ruin bar pouring 100+ Armenian homemade spirits',detail:'A tiny DIY ruin bar on the second floor of a 200-year-old building \u2014 all local Armenian distillates, tinctures and grandmother-recipe schnapps, under a clock frozen at 13:20.',dur:'1.5 h',cost:'from 1,500 \u058f/drink',tip:'Tucked away on Pavstos Buzand opposite the Ramada \u2014 DM @13_20.am to confirm it\u2019s open before heading over.'}
         ]},
@@ -340,14 +337,6 @@ class Component extends DCLogic {
           {id:'d3f',time:'18:00',title:'Boyajian Gallery (SAFA)',kind:'Gallery',tier:'plus',lat:40.1894,lng:44.5166,blurb:'Academy gallery showcasing Armenia\u2019s emerging young artists',detail:'The ground-floor exhibition gallery of the State Academy of Fine Arts (SAFA) on Isahakyan St \u2014 rotating shows of students, graduates and contemporary Armenian artists.',dur:'45 min',cost:'Free',tip:'Open weekday academy hours \u2014 check the current show on safa.am, as it changes often.'},
           {id:'d3g',time:'19:00',title:'Lovers\u2019 Park, quiet evening',kind:'Walk',tier:'plus',lat:40.1888,lng:44.5188,blurb:'Landscaped gardens for a slow night.',detail:'A calm, manicured park to decompress \u2014 water, stone and shade, with a good cafe inside.',dur:'45 min',cost:'Free',tip:'A deliberately low-key evening \u2014 the morning earns it.'}
         ]},
-      { label:'Yerevan at Your Own Pace', chip:'Rest day',
-        spots:[
-          {id:'d4a',time:'08:00',title:'Morning yoga',kind:'Wellness',tier:'core',lat:40.1852,lng:44.5160,blurb:'A class before the heat.',detail:'A gentle morning flow before the sun is high \u2014 several central studios run drop-in classes.',dur:'1.5 h',cost:'~3,000 \u058f',tip:'Book a drop-in the day before; ask if mats are provided.'},
-          {id:'d4b',time:'10:30',title:'Pool & sunbathing',kind:'Wellness',tier:'core',lat:40.1808,lng:44.5082,blurb:'The heart of the rest day.',detail:'Spend the warm middle of the day by the water. Many hotels sell day passes to their pools and decks.',dur:'3.5 h',cost:'pass ~5,000\u201310,000 \u058f',tip:'Reserve a day pass in advance in July \u2014 pools cap numbers.'},
-          {id:'d4c',time:'14:00',title:'Light poolside lunch',kind:'Food',tier:'plus',lat:40.1810,lng:44.5085,blurb:'Salads, fruit and cold drinks.',detail:'Keep it light and cool \u2014 apricots peak in early July, so eat them at their best.',dur:'1 h',cost:'~4,000 \u058f',tip:'Apricot is the national fruit \u2014 buy a bagful from a vendor.'},
-          {id:'d4d',time:'16:00',title:'Saint Gregory The Illuminator Cathedral (Optional)',kind:'Rest',tier:'extra',lat:40.1719,lng:44.5169,blurb:'Armenia\u2019s largest cathedral, vast and luminous in pale stone',detail:'Consecrated in 2001 for 1,700 years of Armenian Christianity, this sweeping modern cathedral on Tigran Mets seats some 1,700 and shelters Saint Gregory\u2019s relics.',dur:'45 min',cost:'Free',tip:'Dress modestly and cover shoulders; mid-morning light through the apse is the quietest.'},
-          {id:'d4e',time:'20:00',title:'Relaxed dinner',kind:'Food',tier:'plus',lat:40.1842,lng:44.5145,blurb:'Easy neighbourhood dinner.',detail:'A courtyard restaurant, lavash from the tonir, a glass of wine. Early night before Gyumri.',dur:'1.5 h',cost:'5,000\u20138,000 \u058f',tip:'If tomorrow is the day-trip, prep transport tonight.'}
-        ]},
       { label:'The Artisan Capital', chip:'Gyumri', gyumri:true,
         daySpots:[
           {id:'g1',time:'06:30',title:'Early start to Gyumri',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Drive or train NW to Armenia\u2019s second city (~126 km).',detail:'Car/taxi ~2 h each way; the train is slower (~3 h) but cheap and scenic. Leave early for the cool hours.',dur:'~2 h',cost:'train ~1,000 \u058f / car ~25,000 \u058f',tip:'On a single day, transport is the whole constraint \u2014 lock it in.'},
@@ -360,16 +349,16 @@ class Component extends DCLogic {
           {id:'g8',time:'19:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back on the road south.',detail:'Be moving by early evening so you\u2019re back in Yerevan for a relaxed last night.',dur:'~2 h',cost:'as morning',tip:'Confirm the return train time on arrival \u2014 schedules are sparse.'}
         ],
         nightSpots:[
-          {id:'n1',time:'Fri 11:00',title:'Late, unhurried departure',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'No dawn alarm \u2014 ease north.',detail:'With a night in hand, leave mid-morning. Same ~2 h by car, none of the day-trip clock-watching.',dur:'~2 h',cost:'as day trip',tip:'The overnight is the calmer, more local way \u2014 recommended.'},
-          {id:'n2',time:'Fri 13:30',title:'Lunch & check in',kind:'Food',tier:'core',lat:40.7875,lng:43.8425,blurb:'Drop bags at a Kumayri guesthouse.',detail:'Stay inside the historic district \u2014 a tufa guesthouse puts you in the atmosphere. Then a long welcome lunch.',dur:'1.5 h',cost:'room ~12,000\u201320,000 \u058f',tip:'Family-run guesthouses are the characterful choice.'},
-          {id:'n3',time:'Fri 15:00',title:'Kumayri district, slow wander',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'The historic streets, no rush.',detail:'Roam the carved-balcony townhouses at ease, into courtyards and craft workshops.',dur:'2 h',cost:'Free',tip:'Late light on the black-and-red tufa is the photograph.'},
-          {id:'n4',time:'Fri 17:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Bright ceramics break up the stone.',detail:'The Aslamazyan sisters\u2019 colour-soaked work \u2014 an easy late-afternoon stop.',dur:'45 min',cost:'1,000 \u058f',tip:'Closes ~17\u201318:00 \u2014 go before dinner.'},
-          {id:'n5',time:'Fri 19:30',title:'Dinner & Gyumri pub culture',kind:'Food',tier:'core',lat:40.7888,lng:43.8455,blurb:'The real reward of staying over.',detail:'Hearty food, local beer, live music and that famous wit \u2014 what a day trip can never reach.',dur:'2.5 h',cost:'5,000\u20139,000 \u058f',tip:'Ask your guesthouse where locals actually drink.'},
-          {id:'n6',time:'Fri 22:00',title:'Vardanants Square at night',kind:'Walk',tier:'plus',lat:40.7894,lng:43.8470,blurb:'The lit square and cathedrals after dark.',detail:'A short night stroll \u2014 the floodlit churches close the evening well.',dur:'30 min',cost:'Free',tip:'Cooler and calmer than midday.'},
-          {id:'n7',time:'Sat 08:30',title:'Morning market & bakeries',kind:'Market',tier:'plus',lat:40.7905,lng:43.8488,blurb:'Breakfast where Gyumri shops.',detail:'Fresh bread, cheese and the morning bustle \u2014 the rhythm a day-tripper sleeps through.',dur:'1 h',cost:'~2,000 \u058f',tip:'Buy pastries for the road back.'},
-          {id:'n8',time:'Sat 09:30',title:'Holy Saviour\u2019s & Seven Wounds',kind:'Heritage',tier:'core',lat:40.7894,lng:43.8470,blurb:'The cathedrals in morning light.',detail:'Return to Vardanants Square to go inside both churches \u2014 the reconstruction is moving up close.',dur:'1 h',cost:'Free',tip:'Mornings are quietest for the interiors.'},
-          {id:'n9',time:'Sat 11:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Urban-life museum in a tufa mansion.',detail:'With time on your side, give the social-history museum its due.',dur:'1 h',cost:'1,000 \u058f',tip:'The carved ceilings are worth the entry alone.'},
-          {id:'n10',time:'Sat 14:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back south by early afternoon.',detail:'A relaxed ride back, in good time for any onward plans or a final Yerevan evening.',dur:'~2 h',cost:'as outbound',tip:'You\u2019ll arrive rested rather than wrung out.'}
+          {id:'n1',time:'Thu 11:00',title:'Late, unhurried departure',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'No dawn alarm \u2014 ease north.',detail:'With a night in hand, leave mid-morning. Same ~2 h by car, none of the day-trip clock-watching.',dur:'~2 h',cost:'as day trip',tip:'The overnight is the calmer, more local way \u2014 recommended.'},
+          {id:'n2',time:'Thu 13:30',title:'Lunch & check in',kind:'Food',tier:'core',lat:40.7875,lng:43.8425,blurb:'Drop bags at a Kumayri guesthouse.',detail:'Stay inside the historic district \u2014 a tufa guesthouse puts you in the atmosphere. Then a long welcome lunch.',dur:'1.5 h',cost:'room ~12,000\u201320,000 \u058f',tip:'Family-run guesthouses are the characterful choice.'},
+          {id:'n3',time:'Thu 15:00',title:'Kumayri district, slow wander',kind:'Heritage',tier:'core',lat:40.7868,lng:43.8420,blurb:'The historic streets, no rush.',detail:'Roam the carved-balcony townhouses at ease, into courtyards and craft workshops.',dur:'2 h',cost:'Free',tip:'Late light on the black-and-red tufa is the photograph.'},
+          {id:'n4',time:'Thu 17:30',title:'Aslamazyan Sisters Gallery',kind:'Gallery',tier:'plus',lat:40.7900,lng:43.8462,blurb:'Bright ceramics break up the stone.',detail:'The Aslamazyan sisters\u2019 colour-soaked work \u2014 an easy late-afternoon stop.',dur:'45 min',cost:'1,000 \u058f',tip:'Closes ~17\u201318:00 \u2014 go before dinner.'},
+          {id:'n5',time:'Thu 19:30',title:'Dinner & Gyumri pub culture',kind:'Food',tier:'core',lat:40.7888,lng:43.8455,blurb:'The real reward of staying over.',detail:'Hearty food, local beer, live music and that famous wit \u2014 what a day trip can never reach.',dur:'2.5 h',cost:'5,000\u20139,000 \u058f',tip:'Ask your guesthouse where locals actually drink.'},
+          {id:'n6',time:'Thu 22:00',title:'Vardanants Square at night',kind:'Walk',tier:'plus',lat:40.7894,lng:43.8470,blurb:'The lit square and cathedrals after dark.',detail:'A short night stroll \u2014 the floodlit churches close the evening well.',dur:'30 min',cost:'Free',tip:'Cooler and calmer than midday.'},
+          {id:'n7',time:'Fri 08:30',title:'Morning market & bakeries',kind:'Market',tier:'plus',lat:40.7905,lng:43.8488,blurb:'Breakfast where Gyumri shops.',detail:'Fresh bread, cheese and the morning bustle \u2014 the rhythm a day-tripper sleeps through.',dur:'1 h',cost:'~2,000 \u058f',tip:'Buy pastries for the road back.'},
+          {id:'n8',time:'Fri 09:30',title:'Holy Saviour\u2019s & Seven Wounds',kind:'Heritage',tier:'core',lat:40.7894,lng:43.8470,blurb:'The cathedrals in morning light.',detail:'Return to Vardanants Square to go inside both churches \u2014 the reconstruction is moving up close.',dur:'1 h',cost:'Free',tip:'Mornings are quietest for the interiors.'},
+          {id:'n9',time:'Fri 11:00',title:'Dzitoghtsyan Museum',kind:'Museum',tier:'plus',lat:40.7889,lng:43.8419,blurb:'Urban-life museum in a tufa mansion.',detail:'With time on your side, give the social-history museum its due.',dur:'1 h',cost:'1,000 \u058f',tip:'The carved ceilings are worth the entry alone.'},
+          {id:'n10',time:'Fri 14:00',title:'Return to Yerevan',kind:'Travel',tier:'core',lat:40.7760,lng:43.8470,blurb:'Back south by early afternoon.',detail:'A relaxed ride back, in good time for any onward plans or a final Yerevan evening.',dur:'~2 h',cost:'as outbound',tip:'You\u2019ll arrive rested rather than wrung out.'}
         ]}
     ];
   }
@@ -383,7 +372,7 @@ class Component extends DCLogic {
     const showRoute = this.props.showRoute !== false;
     const days = this.data();
     const slots = this.slots();
-    const order = [0,1,2,3,4];
+    const order = [0,1,3,2];
     const pos = Math.min(this.state.day, days.length-1);
     const day = days[order[pos]];
     const slot = slots[pos];
@@ -413,7 +402,7 @@ class Component extends DCLogic {
     if(day.gyumri){
       spots = this.state.gyumri==='night' ? day.nightSpots : day.daySpots;
       note = this.state.gyumri==='night'
-        ? 'Overnight: leave Fri, sleep in a Kumayri guesthouse, roll back to Yerevan midday Sat \u2014 the calmer, more local version.'
+        ? 'Overnight: leave Thu, sleep in a Kumayri guesthouse, roll back to Yerevan midday Fri \u2014 the calmer, more local version.'
         : 'Single day: out before dawn, back late evening. Rewarding, but transport timing rules the day \u2014 try Overnight for the slower version.';
     } else { spots = day.spots; }
     const rank={relaxed:0,balanced:1,full:2};
@@ -466,7 +455,7 @@ class Component extends DCLogic {
     const stars=(n)=>'\u2605'.repeat(n)+'\u2606'.repeat(5-n);
     const hotelCards = this.hotels().map(h=>{
       const tierBg = h.id==='ibis' ? T.accent2 : (h.tier.indexOf('Marriott')>=0||h.tier.indexOf('Luxury')>=0||h.tier.indexOf('venpick')>=0? T.accent : T.muted);
-      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'\u20ac'+h.price, bookUrl:this.bookingUrl(h.book),
+      return { name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'\u20ac'+h.price, bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
         cardStyle:{ background:T.surface, borderRadius:'14px', border:'1px solid '+T.line, overflow:'hidden' },
         photoStyle:{ position:'relative', width:'100%', height:'170px', backgroundImage:'url('+h.img+')', backgroundSize:'cover', backgroundPosition:'center' },
         tierStyle:{position:'absolute', top:'11px', left:'11px', fontFamily:"'Space Mono',monospace", fontSize:'9px', letterSpacing:'.1em', textTransform:'uppercase', color:'#fff', background:tierBg, padding:'4px 9px', borderRadius:'999px', boxShadow:'0 2px 8px rgba(0,0,0,.3)'},

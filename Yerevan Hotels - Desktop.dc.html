@@ -24,15 +24,15 @@
     <header style="padding:46px 0 26px;border-bottom:1px solid var(--line,#e6d8c6)">
       <div style="display:flex;align-items:baseline;gap:14px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent,#c4542f)">
         <span>Where to stay</span>
-        <span style="color:var(--muted,#8a7868)">/ 1–5 Jul · 4 nights · Kentron</span>
+        <span style="color:var(--muted,#8a7868)">/ 13–16 Oct · 3 nights · 3 adults</span>
       </div>
       <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:60px;line-height:1;letter-spacing:-.01em;margin-top:14px;color:var(--ink,#2a2018)">Where to <span style="font-style:italic;color:var(--accent,#c4542f)">stay</span></h1>
-      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Six well-rated stays, all walkable to Republic Square and the galleries — from the value pick to the luxury flagships. Each opens its live Booking.com page for your dates.</p>
+      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Five well-rated stays, all walkable to Republic Square and the galleries — from the value pick to the luxury flagships. Each opens its live Booking.com page for your dates — live prices checked for 13–16 October, 3 adults.</p>
     </header>
 
     <!-- HOTEL LIST -->
     <div style="display:flex;flex-direction:column;gap:16px;margin-top:30px">
-      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="6">
+      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="5">
         <div style="{{ h.cardStyle }}">
           <!-- photo -->
           <div style="{{ h.photoStyle }}">
@@ -59,7 +59,8 @@
             </div>
             <div style="text-align:right;margin-top:14px">
               <div style="font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--ink,#2a2018);letter-spacing:-.02em">{{ h.priceLabel }}</div>
-              <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#8a7868);margin-top:1px">/ night · approx</div>
+              <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#8a7868);margin-top:1px">/ night · 3 adults</div>
+              <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;color:var(--muted,#8a7868);margin-top:5px;line-height:1.35">{{ h.stay }}</div>
             </div>
             <a href="{{ h.bookUrl }}" target="_blank" rel="noopener noreferrer" style="{{ h.bookStyle }}">Book on Booking.com ↗</a>
           </div>
@@ -67,7 +68,7 @@
       </sc-for>
     </div>
 
-    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices and ratings are approximate seasonal indications. Booking links open Booking.com in a new tab, pre-set to 1–5 July 2026 · 1 guest · 1 room. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
+    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices are the cheapest Booking.com rate found on 6 Oct 2026 for 13–16 Oct, covering all 3 adults, per night, before taxes &amp; fees (~20%); they can change. Booking links open Booking.com in a new tab, pre-set to those dates · 3 adults. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
   </div>
 </div>
 </x-dc>
@@ -83,18 +84,16 @@ class Component extends DCLogic {
 
   hotels(){
     return [
-      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', reviews:'658 rev.', price:165, loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower with panoramic city views, a spa zone and a rooftop cocktail bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'Courtyard by Marriott Yerevan'},
-      {id:'marriott', name:'Armenia Marriott', tier:'Marriott · 5★', stars:5, score:'8.7', reviews:'4.8k rev.', price:185, loc:'Republic Square · Kentron', note:'The classic address right on the main square — step straight out into the heart of it.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNMC/evnmc-exterior-0025-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'Armenia Marriott Hotel Yerevan'},
-      {id:'alexander', name:'The Alexander', tier:'Luxury Collection', stars:5, score:'9.0', reviews:'1.2k rev.', price:245, loc:'Abovyan Street · Kentron', note:'Yerevan\u2019s polished luxury flagship — indoor pool, fine dining and marble throughout.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNLC/evnlc-atelier-6045-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'The Alexander a Luxury Collection Hotel Yerevan'},
-      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'8.8', reviews:'1.0k rev.', price:150, loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star moments from the Opera and Cascade, with a generous breakfast.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
-      {id:'tufenkian', name:'Tufenkian Historic', tier:'Boutique', stars:4, score:'8.9', reviews:'900+ rev.', price:115, loc:'Hanrapetutyan St · Old Yerevan', note:'Handwoven carpets and Armenian craft — the one with genuine local character.', img:'https://historic-yerevan.tufenkianheritage.com/upload/iblock/f32/10scxaoqkxhespsk2byotfjktenp4tam.jpeg', book:'Tufenkian Historic Yerevan Hotel'},
-      {id:'ibis', name:'ibis Yerevan Center', tier:'Best value', stars:3, score:'8.6', reviews:'2.1k rev.', price:72, loc:'Near Republic Sq · Kentron', note:'Smart, reliable budget pick — clean, modern and central enough to walk everywhere.', img:'https://www.ahstatic.com/photos/7309_ho_00_p_1024x768.jpg', book:'ibis Yerevan Center'},
-      {id:'silkroad', name:'Silk Road', tier:'Garden boutique', stars:3, score:'9.3', reviews:'151 rev.', price:78, loc:'Ayghedzor St · Kentron', note:'A tranquil 13-room boutique a short walk from the Cascade — Armenian-craft interiors, a leafy garden, and a breakfast guests rave about.', img:'https://srhotelarmenia.com/components/com_megashop/access/media/accomodation/room_gallery_1693770653169377065364f4e39dbe386.jpg', book:'https://www.booking.com/hotel/am/silk-road.html'}
+      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', reviews:'857 rev.', price:519, rooms:2, stay:'2 twin rooms · €1,558 for 3 nights', loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower with panoramic city views, a spa zone and a rooftop cocktail bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/courtyard-by-marriott-yerevan.html'},
+      {id:'marriott', name:'Armenia Marriott', tier:'Marriott · 5★', stars:5, score:'8.7', reviews:'457 rev.', price:351, rooms:1, stay:'1 room for 3 · €1,052 for 3 nights', loc:'Republic Square · Kentron', note:'The classic address right on the main square — step straight out into the heart of it.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNMC/evnmc-exterior-0025-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/marriott-armenia-yerevan.html'},
+      {id:'alexander', name:'The Alexander', tier:'Luxury Collection', stars:5, score:'9.1', reviews:'237 rev.', price:781, rooms:1, stay:'1 room for 3 · €2,344 for 3 nights', loc:'Abovyan Street · Kentron', note:'Yerevan\u2019s polished luxury flagship — indoor pool, fine dining and marble throughout.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNLC/evnlc-atelier-6045-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/the-alexander.html'},
+      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'9.3', reviews:'110 rev.', price:478, rooms:1, stay:'Junior Suite for 3 · €1,434 for 3 nights', loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star moments from the Opera and Cascade, with a generous breakfast.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
+      {id:'ibis', name:'ibis Yerevan Center', tier:'Best value', stars:3, score:'8.6', reviews:'1.4k rev.', price:377, rooms:2, stay:'2 rooms · €1,130 for 3 nights', loc:'Near Republic Sq · Kentron', note:'Smart, reliable budget pick — clean, modern and central enough to walk everywhere.', img:'https://www.ahstatic.com/photos/7309_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/ibis-yerevan-center.html'},
     ];
   }
 
-  bookingUrl(name){
-    var q='checkin=2026-07-01&checkout=2026-07-05&group_adults=1&no_rooms=1&group_children=0';
+  bookingUrl(name,rooms){
+    var q='checkin=2026-10-13&checkout=2026-10-16&group_adults=3&no_rooms='+(rooms||1)+'&group_children=0&selected_currency=EUR';
     if(/^https?:\/\//.test(name)) return name+(name.indexOf('?')<0?'?':'&')+q;
     return 'https://www.booking.com/searchresults.html?ss='+encodeURIComponent(name)+'&'+q;
   }
@@ -115,7 +114,7 @@ class Component extends DCLogic {
       return {
         name:h.name, tier:h.tier, stars:stars(h.stars), score:h.score, reviews:h.reviews,
         loc:h.loc, note:h.note, pin:'\uD83D\uDCCD', priceLabel:'\u20ac'+h.price,
-        bookUrl:this.bookingUrl(h.book),
+        bookUrl:this.bookingUrl(h.book,h.rooms), stay:h.stay,
         cardStyle:{
           display:'flex', alignItems:'stretch', gap:'22px', width:'100%',
           background:T.surface, padding:'18px', borderRadius:'14px', border:'1px solid '+T.line
