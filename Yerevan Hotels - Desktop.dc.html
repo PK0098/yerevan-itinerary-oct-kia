@@ -27,12 +27,12 @@
         <span style="color:var(--muted,#8a7868)">/ 13–16 Oct · 3 nights · 2 adults</span>
       </div>
       <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:60px;line-height:1;letter-spacing:-.01em;margin-top:14px;color:var(--ink,#2a2018)">Where to <span style="font-style:italic;color:var(--accent,#c4542f)">stay</span></h1>
-      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Five well-rated stays, all walkable to Republic Square and the galleries — from the value pick to the luxury flagships. Each opens its live Booking.com page for your dates — live prices checked for 13–16 October, 2 adults.</p>
+      <p style="max-width:580px;margin-top:16px;font-family:'Newsreader',serif;font-size:18px;line-height:1.5;color:var(--ink,#2a2018);opacity:.82">Six well-rated stays, all walkable to Republic Square and the galleries — from the value pick to the luxury flagships. Each opens its live Booking.com page for your dates — live prices checked for 13–16 October, 2 adults.</p>
     </header>
 
     <!-- HOTEL LIST -->
     <div style="display:flex;flex-direction:column;gap:16px;margin-top:30px">
-      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="5">
+      <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="6">
         <div style="{{ h.cardStyle }}">
           <!-- photo -->
           <div style="{{ h.photoStyle }}">
@@ -68,7 +68,7 @@
       </sc-for>
     </div>
 
-    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices are the cheapest Booking.com rate found on 6 Oct 2026 with breakfast included for 13–16 Oct, USD, 2 adults in 1 room, per night, before taxes &amp; fees (~20%); they can change, and the cheapest rate is often non-refundable. Booking links open Booking.com in a new tab, pre-set to those dates · 2 adults. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
+    <p style="margin-top:28px;font-family:'Hanken Grotesk',sans-serif;font-size:12.5px;line-height:1.5;color:var(--ink,#2a2018);opacity:.5">Prices are the cheapest Booking.com rate found on 6 Oct 2026 with breakfast included for 13–16 Oct, USD, 2 adults in 1 room, per night, before taxes &amp; fees (~20%); they can change, and the cheapest rate is often non-refundable. Rooms Apart does not include breakfast, so its price adds the breakfast add-on (assumed per person per night). Booking links open Booking.com in a new tab, pre-set to those dates · 2 adults. Photos are each hotel\u2019s own, from its official Marriott / Accor / hotel listing.</p>
   </div>
 </div>
 </x-dc>
@@ -84,11 +84,12 @@ class Component extends DCLogic {
 
   hotels(){
     return [
-      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', reviews:'857 rev.', price:330, rooms:1, stay:'Standard King Room · $991 for 3 nights · breakfast incl.', loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower with panoramic city views, a spa zone and a rooftop cocktail bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/courtyard-by-marriott-yerevan.html'},
-      {id:'marriott', name:'Armenia Marriott', tier:'Marriott · 5★', stars:5, score:'8.7', reviews:'457 rev.', price:396, rooms:1, stay:'Superior Deluxe, 2 doubles · $1,187 for 3 nights · breakfast incl.', loc:'Republic Square · Kentron', note:'The classic address right on the main square — step straight out into the heart of it.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNMC/evnmc-exterior-0025-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/marriott-armenia-yerevan.html'},
-      {id:'alexander', name:'The Alexander', tier:'Luxury Collection', stars:5, score:'9.1', reviews:'237 rev.', price:835, rooms:1, stay:'Superior King Room · $2,504 for 3 nights · breakfast incl.', loc:'Abovyan Street · Kentron', note:'Yerevan\u2019s polished luxury flagship — indoor pool, fine dining and marble throughout.', img:'https://cache.marriott.com/content/dam/marriott-renditions/EVNLC/evnlc-atelier-6045-hor-wide.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/the-alexander.html'},
-      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'9.3', reviews:'110 rev.', price:376, rooms:1, stay:'Standard King Room · $1,128 for 3 nights · breakfast incl.', loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star moments from the Opera and Cascade, with a generous breakfast.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
+      {id:'ani', name:'Ani Plaza Hotel', tier:'4★ · Pool & spa', stars:4, score:'8.7', reviews:'719 rev.', price:139, rooms:1, stay:'Double or Twin · $417 for 3 nights · breakfast incl.', loc:'Sayat-Nova Ave · Kentron', note:'Four-star hotel with an indoor pool, gym and sauna, walkable to Republic Square, the National Gallery and the Cascade.', img:'https://r-xx.bstatic.com/xdata/images/hotel/1200x630/884925199.jpg?k=161eb6f1baf5c329f2e1f28cb0e0fd3317fc21245e58f7e13d39122da21bed32&o=', book:'https://www.booking.com/hotel/am/ani-plaza.html'},
+      {id:'roomsapart', name:'Rooms Apart Hotel by RED', tier:'Apart-hotel', stars:0, score:'9.3', reviews:'1.1k rev.', price:165, rooms:1, stay:'Studio · $411 + breakfast add-on ≈ $495 for 3 nights', loc:'Hanrapetutyan St · Kentron', note:'Recently renovated condo hotel with studios, a garden and a terrace, near Republic Square and the metro. Breakfast is an add-on here, not included.', img:'https://r-xx.bstatic.com/xdata/images/hotel/1200x630/794541870.jpg?k=314579899c6e8d9c452c7efb730cd28365b222237ea67a774c12042d7f42cd82&o=', book:'https://www.booking.com/hotel/am/rooms-apart-by-red.html'},
+      {id:'hayasa', name:'Hayasa Hotel Old Yerevan', tier:'Boutique', stars:4, score:'8.6', reviews:'58 rev.', price:228, rooms:1, stay:'Deluxe Double or Twin · $685 for 3 nights · breakfast incl.', loc:'Buzand St · Old Yerevan', note:'Four-star hotel with a bar, room service and a 24-hour front desk, a few doors from the 13:20 bar.', img:'https://r-xx.bstatic.com/xdata/images/hotel/1200x630/866976093.jpg?k=cb03dc4abbe5b85f0cd7eb79d80be8b85304b754352693f87d666d100096029d&o=', book:'https://www.booking.com/hotel/am/hayasa-old-yerevan.html'},
       {id:'ibis', name:'ibis Yerevan Center', tier:'Best value', stars:3, score:'8.6', reviews:'1.4k rev.', price:246, rooms:1, stay:'Premium Double Room · $737 for 3 nights · breakfast incl.', loc:'Near Republic Sq · Kentron', note:'Smart, reliable budget pick — clean, modern and central enough to walk everywhere.', img:'https://www.ahstatic.com/photos/7309_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/ibis-yerevan-center.html'},
+      {id:'courtyard', name:'Courtyard by Marriott', tier:'Marriott', stars:4, score:'9.3', reviews:'857 rev.', price:330, rooms:1, stay:'Standard King Room · $991 for 3 nights · breakfast incl.', loc:'Charles Aznavour Sq · Kentron', note:'Brand-new tower with panoramic city views, a spa zone and a rooftop cocktail bar.', img:'https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/cy/emea/hws/e/evncy/zh_cn/photo/unlimited/assets/cy-evncy-evncy-exterior-26598-wide-hor.jpg?output-quality=70&downsize=1336px:*', book:'https://www.booking.com/hotel/am/courtyard-by-marriott-yerevan.html'},
+      {id:'movenpick', name:'M\u00f6venpick Yerevan', tier:'M\u00f6venpick · 5★', stars:5, score:'9.3', reviews:'110 rev.', price:376, rooms:1, stay:'Standard King Room · $1,128 for 3 nights · breakfast incl.', loc:'Sayat-Nova Ave · Kentron', note:'Sleek modern five-star moments from the Opera and Cascade, with a generous breakfast.', img:'https://www.ahstatic.com/photos/b9y2_ho_00_p_1024x768.jpg', book:'https://www.booking.com/hotel/am/movenpick-yerevan.html'},
     ];
   }
 
@@ -101,7 +102,7 @@ class Component extends DCLogic {
   renderVals(){
     const T = this.themes()[this.props.theme || 'apricot'] || this.themes().apricot;
     const list = this.hotels();
-    const stars = (n)=> '\u2605'.repeat(n) + '\u2606'.repeat(5-n);
+    const stars = (n)=> n ? '\u2605'.repeat(n) + '\u2606'.repeat(5-n) : '';
 
     const rootStyle = {
       '--bg':T.bg,'--surface':T.surface,'--ink':T.ink,'--muted':T.muted,'--line':T.line,'--accent':T.accent,'--accent2':T.accent2,
